@@ -19,7 +19,7 @@ public class RenderTablero extends Thread {
     public RenderTablero(Modelo modelo) {
         //this.modelo = modelo;
         tablero = modelo.getTablero();
-        vistaTablero = modelo.getJuegoVista().getVistaTablero(); // aquí inicializamos todo, pasando por "referencia"
+        vistaTablero = modelo.getJuegoVista().getVistaTablero(); // aquí inicializamos , pasando por "referencia"
         obT = modelo.getObT();
         gm = modelo.getGestor();
     }
