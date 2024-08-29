@@ -1,6 +1,5 @@
 package game.logica;
 
-import game.logica.fichas.Caballo;
 import game.logica.util.Normalizar;
 
 import java.awt.*;

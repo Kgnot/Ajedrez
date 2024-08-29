@@ -3,7 +3,7 @@ package game.logica;
 
 public class ObservadorTablero {
 
-    private Tablero tablero;
+    private final Tablero tablero;
 
     public ObservadorTablero(Tablero tablero){
         this.tablero = tablero;
