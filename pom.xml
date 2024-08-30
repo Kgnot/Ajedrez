@@ -27,7 +27,11 @@
             <version>RELEASE</version>
             <scope>compile</scope>
         </dependency>
-
+        <dependency>
+            <groupId>cn.itlym.shoulder</groupId>
+            <artifactId>lombok</artifactId>
+            <version>0.1</version>
+        </dependency>
     </dependencies>
 
 

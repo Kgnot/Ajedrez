@@ -1,14 +1,17 @@
 package game.ui.view.juego.tab;
 
 import game.model.Modelo;
+import lombok.Getter;
 
 import java.awt.*;
 import javax.swing.*;
 
 public class TableroV extends JPanel {
 
+    @Getter
     private final Casilla[][] cuadros;
     private final int tam;
+    @Getter
     private final Modelo modelo;
     private Point pInicial;
 
@@ -44,14 +47,6 @@ public class TableroV extends JPanel {
     }
 
     // Métodos del get:
-
-    public Casilla[][] getCuadros() {
-        return cuadros;
-    }
-
-    public Modelo getModelo(){
-        return modelo;
-    }
 
     public Point getPInicial(){
         return pInicial;

@@ -33,18 +33,9 @@ public class ControladorCasilla implements MouseListener {
         switch (e.getButton()) {
             case 1:
                 setPInicial(seleccionar());
-                System.out.println(getPInicial()
-                        + " \n" + casilla.getTablero().getModelo().getFicha()
-                );
                 break;
             case 3:
-                System.out.println(getPInicial()
-                        + " \n" + casilla.getTablero().getModelo().getFicha()
-                );
                 posicionar(getPInicial());
-                System.out.println("------------------TABLERO---------------");
-                getTablero().tableroToString();
-                 System.out.println("-------------------------------------");
                 break;
             default:
                 break;
@@ -70,6 +61,10 @@ public class ControladorCasilla implements MouseListener {
         int columna = (Integer) casilla.getClientProperty("columna");
         Fichas fichaSeleccionada = getTablero().getTablero()[fila][columna];
         setFicha(fichaSeleccionada);
+        if(fichaSeleccionada == null){
+            return null;
+        }
+        getGestor().movimientos_y_enemigosPosibles(new Point(fila,columna),fichaSeleccionada);
         return new Point(fila, columna);
     }
 
@@ -93,17 +88,16 @@ public class ControladorCasilla implements MouseListener {
     }
 
     private Fichas getFicha() {
-        return casilla.getTablero().getModelo().getFicha();
+        return Fichas.getFichaManejable();
     }
 
     private void setFicha(Fichas item) {
-        casilla.getTablero().getModelo().setFicha(item);
+        Fichas.setFichaManejable(item);
     }
 
     private Point getPInicial() {
         return casilla.getTablero().getPInicial();
     }
-
     private void setPInicial(Point pInicial) {
         casilla.getTablero().setPInicial(pInicial);
     }

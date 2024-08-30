@@ -1,6 +1,5 @@
 package game.model;
 
-import game.core.logic.Fichas;
 import game.core.logic.tablero.Tablero;
 import game.ui.view.juego.*;
 import game.render.RenderTablero;
@@ -12,7 +11,6 @@ public class Modelo {
     private JuegoVista juegoVista;
     //Apartado de logica
     private Tablero tablero;
-    private Fichas fichaManejable; // la ficha que manejaré.
     // RENDER
     private RenderTablero renderTablero;
 
@@ -22,13 +20,6 @@ public class Modelo {
             tablero = new Tablero();
         }
         return tablero;
-    }
-    public Fichas getFicha(){
-        return fichaManejable;
-    }
-
-    public void setFicha(Fichas fichaSeleccionada){
-        fichaManejable  = fichaSeleccionada;
     }
     // Visual
     public Ventana getVentana() {
@@ -59,7 +50,6 @@ public class Modelo {
         getVentana().add(getJuegoVista()); // Metemos a la ventana
         getVentana().pack();
         getVentana().setLocationRelativeTo(null); // para centrarlo
-
         // Luego la lógica
         getTablero(); // Llamamos al tablero de una vez e inicializamos
         getRenderTablero().start();
