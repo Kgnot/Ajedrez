@@ -47,30 +47,30 @@ public class GestorMovimientos {
 
     public Set<Point> puntosMovibles(Point coordenadaInicial, Fichas ficha) {
         Set<Point> puntosValidos = new HashSet<>();
+        int filaInicial = coordenadaInicial.x;
+        int columnaInicial = coordenadaInicial.y;
 
-        for (Point mov : ficha.movimiento()) {
-            int moveFila = mov.x;
-            int moveColumna = mov.y;
-            var punto = new Point(coordenadaInicial.x + moveFila, coordenadaInicial.y + moveColumna);
-
-            if ((punto.x < 0 || punto.x > 7) || (punto.y < 0 || punto.y > 7)) {
-                continue;
-            }
-
-            if (tablero.getTablero()[punto.x][punto.y] != null) { // Si es una ficha -> entonces:
-                // Normalizar y añadir todos los puntos a ignorar en esa dirección
-                var normalizado = Normalizar.normalizar(mov);
-                for (int i = 1; i < 8; i++) {
-                    Point puntoIgnorar = new Point(punto.x + i * normalizado.x, punto.y + i * normalizado.y);
-                    if (puntoIgnorar.x >= 0 && puntoIgnorar.x <= 7 && puntoIgnorar.y >= 0 && puntoIgnorar.y <= 7) {
-                        puntosValidos.remove(puntoIgnorar);
-                    }
-                }
-            } else {
-                puntosValidos.add(punto);
-            }
-        }
-
+        // Ahora nos pasan son las direcciones el ficha.movimiento
+      for(Point dir : ficha.movimiento()){
+          // Ahora a cada una de las direcciones vamos a reproducirlas 7 veces por maximos:  - Aunque debería de ser 6
+          for(int i = 1; i<8 ; i++){
+              int fila = dir.x;
+              int columna = dir.y;
+              // verificamos la suma:
+              if(filaInicial+(fila*i) < 0 || filaInicial+(fila*i)>7  || columnaInicial+(columna*i) < 0 || columnaInicial+(columna*i)>7 ){
+                  //significa que esta fuera de los limites, asi que solo cambiara de punto:
+                  break;
+              }
+            //si sigue entonces miramos si hay una ficha
+              if(tablero.getTablero()[filaInicial+(fila*i)][columnaInicial+(columna*i)] != null ){
+                  System.out.println("Hay un enemigo es: "+(filaInicial+(fila*i))+","+(columnaInicial+(columna*i)));
+                  break; // Como hay ficha entonces rompemos, aunque aqui podriamos aprovechar para mandar a ENEMIGO
+              }
+              // como paso todas las restricciones entonces: lo añadiremos y miraremos de nuevo
+            puntosValidos.add(new Point(filaInicial+(fila*i),columnaInicial+(columna*i)));
+          }
+      }
+        System.out.println("Puntos validos: "+puntosValidos);
         return puntosValidos;
     }
 

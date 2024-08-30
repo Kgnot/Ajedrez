@@ -49,6 +49,8 @@ public class Tablero {
         tablero[0][5] = new Alfil(Color.NEGRO);
         tablero[7][2] = new Alfil(Color.BLANCO);
         tablero[7][5] = new Alfil(Color.BLANCO);
+        //prueba
+        tablero[3][3] = new Alfil(Color.BLANCO);
         // Reina y rey:
         tablero[0][3] = new Reina(Color.NEGRO);
         tablero[0][4] = new Rey(Color.NEGRO);
