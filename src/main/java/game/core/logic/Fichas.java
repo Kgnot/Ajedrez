@@ -1,0 +1,29 @@
+package game.core.logic;
+
+import game.core.logic.propiedades.Tipo;
+import game.core.logic.propiedades.Color;
+import java.awt.*;
+import java.util.Set;
+
+public abstract class Fichas {
+
+    protected Color color;
+    protected Tipo tipo;
+
+
+    public Fichas(Color color, Tipo tipo) {
+        this.color = color;
+        this.tipo = tipo;
+    }
+
+    public Color getColor() {
+        return color;
+    }
+
+    public Tipo getTipo() {
+        return tipo;
+    }
+
+    public abstract Set<Point> movimiento(); // Aquí obtenemos muchos puntos que son los posibles movimientos, es decir, es la validación
+
+}

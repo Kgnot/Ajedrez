@@ -1,6 +1,6 @@
 package game.launcher;
 
-import game.presentacion.Modelo;
+import game.model.Modelo;
 
 public class Launcher {
 
