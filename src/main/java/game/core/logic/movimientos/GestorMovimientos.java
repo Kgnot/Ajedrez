@@ -63,32 +63,12 @@ public class GestorMovimientos {
     }
 
     public void movimientos_y_enemigosPosibles(Point coordenadaInicial, Fichas ficha) {
-        Set<Point> puntosValidos = new HashSet<>(), puntosEnemigos = new HashSet<>();
-        int filaInicial = coordenadaInicial.x, columnaInicial = coordenadaInicial.y;
-        // Ahora nos pasan son las direcciones el ficha.movimiento
-        for (Point dir : ficha.movimiento()) {
-            // Ahora a cada una de las direcciones vamos a reproducirlas 7 veces por maximos:  - Aunque debería de ser 6
-            for (int i = 1; i < 8; i++) {
-                int filaUnitaria = dir.x, columnaUnitaria = dir.y;
-                int fila = filaInicial + (filaUnitaria * i);
-                int columna = columnaInicial + (columnaUnitaria * i);
-                // verificamos la suma:
-                if (fila < 0 || fila > 7 || columna < 0 || columna > 7) {
-                    //significa que está fuera de los límites, asi que solo cambiara de punto:
-                    break;
-                }
-                //si sigue entonces miramos si hay una ficha
-                if (tablero.getTablero()[fila][columna] != null) {
-                    puntosEnemigos.add(new Point(fila, columna)); // añadimos el punto enemigo
-                    break; // Como hay ficha entonces rompemos, aunque aquí podríamos aprovechar para mandar a ENEMIGO
-                }
-                // como paso todas las restricciones entonces: lo añadiremos y miraremos de nuevo
-                puntosValidos.add(new Point(fila, columna));
-            }
+        switch (ficha.getTipo())
+        {
+            case PEON -> movimientoResultado.movimientoPeon(coordenadaInicial,ficha,tablero);
+            case CABALLO -> movimientoResultado.movimientoCaballo(coordenadaInicial,ficha,tablero);
+            default -> movimientoResultado.movimientoGeneral(coordenadaInicial,ficha,tablero);
         }
-        // Al final los pondremos en MovimientoResultados
-        movimientoResultado.setMovimientosValidos(puntosValidos);
-        movimientoResultado.setEnemigos(puntosEnemigos);
     }
 
     public synchronized void esperarCambio() throws InterruptedException {

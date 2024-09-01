@@ -6,7 +6,7 @@ import lombok.Getter;
 import java.awt.*;
 import javax.swing.*;
 
-public class TableroV extends JPanel {
+public class TableroV extends JLayeredPane {
 
     @Getter
     private final Casilla[][] cuadros;
@@ -36,9 +36,11 @@ public class TableroV extends JPanel {
                 cuadros[i][j].setBounds(x, y, tam, tam);
                 cuadros[i][j].setBackground(((j + i) % 2) == 0 ? color1 : color2);
                 cuadros[i][j].setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
-                cuadros[i][j].putClientProperty("fila", i);
+                cuadros[i][j].putClientProperty("fila", i);   // Aqui agego las propiedades, pero, donde esta el coso ubicado originalmente?, lo pondremos:
                 cuadros[i][j].putClientProperty("columna", j);
-                add(cuadros[i][j]);
+                // Pondremos la propiedad de su origen:
+                cuadros[i][j].setPuntoInicial(cuadros[i][j].getLocation()); //En forma de punto
+                add(cuadros[i][j],JLayeredPane.DRAG_LAYER); // Porque esto? --> Investigar
                 x += tam;
             }
             x = 0;

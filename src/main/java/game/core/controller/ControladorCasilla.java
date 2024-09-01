@@ -3,15 +3,18 @@ package game.core.controller;
 import game.core.logic.Fichas;
 import game.core.logic.movimientos.GestorMovimientos;
 import game.core.logic.tablero.Tablero;
-import  game.ui.view.juego.tab.Casilla;
+import game.ui.view.juego.tab.Casilla;
+
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
+import java.awt.event.MouseMotionListener;
 
-public class ControladorCasilla implements MouseListener {
+public class ControladorCasilla implements MouseListener, MouseMotionListener {
 
     private final Casilla casilla;
+    private Point initialClick;
 
     public ControladorCasilla(Casilla casilla) {
         this.casilla = casilla;
@@ -20,18 +23,22 @@ public class ControladorCasilla implements MouseListener {
 
     @Override
     public void mouseClicked(MouseEvent e) {
-
     }
 
     @Override
     public void mousePressed(MouseEvent e) {
-
+        initialClick = e.getPoint();
+        casilla.setSeleccionado(true);
+        casilla.getParent().setComponentZOrder(casilla,0); // Para poner por delante
+        //casilla.setBackground(null);
     }
 
     @Override
     public void mouseReleased(MouseEvent e) {
+        casilla.setLocation(casilla.getPuntoInicial()); // Devuelve
         switch (e.getButton()) {
             case 1:
+                casilla.setSeleccionado(true);
                 setPInicial(seleccionar());
                 break;
             case 3:
@@ -55,35 +62,26 @@ public class ControladorCasilla implements MouseListener {
         casilla.setBackground(color.brighter());
         casilla.setBorder(null);
     }
-
-    private Point seleccionar() {
-        int fila = (Integer) casilla.getClientProperty("fila");
-        int columna = (Integer) casilla.getClientProperty("columna");
-        Fichas fichaSeleccionada = getTablero().getTablero()[fila][columna];
-        setFicha(fichaSeleccionada);
-        if(fichaSeleccionada == null){
-            return null;
+    @Override
+    public void mouseDragged(MouseEvent e) {
+        int xCasilla = casilla.getX() + e.getX() - initialClick.x;
+        int yCasilla = casilla.getY() + e.getY() - initialClick.y;
+        if (casilla.isSeleccionado()) {
+            casilla.setLocation(xCasilla, yCasilla);
         }
-        getGestor().movimientos_y_enemigosPosibles(new Point(fila,columna),fichaSeleccionada);
-        return new Point(fila, columna);
     }
 
-    private void posicionar(Point coordenadaInicial) {
-        if (coordenadaInicial == null) {
-            return;
-        }
-        int fila = (Integer) casilla.getClientProperty("fila");
-        int columna = (Integer) casilla.getClientProperty("columna");
-        Point coordenadaFinal = new Point(fila, columna);
-        getGestor().setFicha(coordenadaInicial, coordenadaFinal, getFicha()); ////////////////////////////////////////- se usa aca si algo
+    @Override
+    public void mouseMoved(MouseEvent e) {
+        //Quizas aqui pondremos que rendereizar el tablero
     }
 
 
-
-    private GestorMovimientos getGestor(){
+    private GestorMovimientos getGestor() {
         return getTablero().getGestorMovimientosAjedrez();
     }
-    private Tablero getTablero(){
+
+    private Tablero getTablero() {
         return casilla.getTablero().getModelo().getTablero();
     }
 
@@ -98,9 +96,33 @@ public class ControladorCasilla implements MouseListener {
     private Point getPInicial() {
         return casilla.getTablero().getPInicial();
     }
+
     private void setPInicial(Point pInicial) {
         casilla.getTablero().setPInicial(pInicial);
     }
 
+    // Importantes:
 
+
+    private Point seleccionar() {
+        int fila = (Integer) casilla.getClientProperty("fila");
+        int columna = (Integer) casilla.getClientProperty("columna");
+        Fichas fichaSeleccionada = getTablero().getTablero()[fila][columna];
+        setFicha(fichaSeleccionada);
+        if (fichaSeleccionada == null) {
+            return null;
+        }
+        getGestor().movimientos_y_enemigosPosibles(new Point(fila, columna), fichaSeleccionada);
+        return new Point(fila, columna);
+    }
+
+    private void posicionar(Point coordenadaInicial) {
+        if (coordenadaInicial == null) {
+            return;
+        }
+        int fila = (Integer) casilla.getClientProperty("fila");
+        int columna = (Integer) casilla.getClientProperty("columna");
+        Point coordenadaFinal = new Point(fila, columna);
+        getGestor().setFicha(coordenadaInicial, coordenadaFinal, getFicha()); ////////////////////////////////////////- se usa aca si algo
+    }
 }

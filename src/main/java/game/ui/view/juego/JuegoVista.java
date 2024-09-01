@@ -3,10 +3,12 @@ package game.ui.view.juego;
 
 import game.model.Modelo;
 import game.ui.view.juego.tab.TableroV;
+import lombok.Getter;
 
 public class JuegoVista extends javax.swing.JPanel {
 
     private final Modelo modelo;
+    @Getter
     private final TableroV vistaTablero;
 
     public JuegoVista(Modelo modelo) {
@@ -101,7 +103,4 @@ public class JuegoVista extends javax.swing.JPanel {
     private javax.swing.JPanel PanelTablero;
     // End of variables declaration//GEN-END:variables
 
-    public TableroV getVistaTablero(){
-        return vistaTablero;
-    }
 }

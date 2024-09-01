@@ -6,26 +6,16 @@ import game.model.Modelo;
 import game.ui.view.juego.tab.TableroV;
 
 public class RenderTablero extends Thread {
-
-    // private Modelo modelo;
-    private final Tablero tablero; // Apartado de lógica
-    private final TableroV vistaTablero; // apartado Visual
-    private final GestorMovimientos gm;
-    // Ahora los JPaneles que necesitamos:
-
+    private final Modelo modelo;
 
     public RenderTablero(Modelo modelo) {
-        //this.modelo = modelo;
-        tablero = modelo.getTablero();
-        vistaTablero = modelo.getJuegoVista().getVistaTablero(); // aquí inicializamos , pasando por "referencia"
-        //obT = modelo.getTablero().getObservadorTablero();
-        gm = modelo.getTablero().getGestorMovimientosAjedrez(); // Ponemos al gestor de movimientos
+        this.modelo = modelo;
     }
 
-    //private Tablero que se usa:
-
-
     private void dibujar() {
+        var tablero = modelo.getTablero();
+        var vistaTablero = modelo.getJuegoVista().getVistaTablero();
+
         RenderFichas rf = new RenderFichas();
 
         for (int i = 0; i < 8; i++) {
@@ -44,6 +34,7 @@ public class RenderTablero extends Thread {
 
     @Override
     public void run() {
+        var gm = modelo.getTablero().getGestorMovimientosAjedrez();
         // este debe ser un ciclo perpetuo mirando el tablero constante mente, entonces
         //
         dibujar();
