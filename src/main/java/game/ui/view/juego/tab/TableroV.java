@@ -1,10 +1,12 @@
 package game.ui.view.juego.tab;
 
+import game.core.controller.ControladorCasilla;
 import game.model.Modelo;
+import game.ui.extra.PeonEntity;
 import lombok.Getter;
-
 import java.awt.*;
 import javax.swing.*;
+import game.ui.extra.*;
 
 public class TableroV extends JLayeredPane {
 
@@ -14,6 +16,8 @@ public class TableroV extends JLayeredPane {
     @Getter
     private final Modelo modelo;
     private Point pInicial;
+    // Aquí dibujaremos las entidades - Después debo irar como acomodarlo y eso, probemos como funciona:
+    private PeonEntity peon;
 
     public TableroV(int tam, Modelo modelo) {
         this.modelo = modelo;
@@ -40,7 +44,7 @@ public class TableroV extends JLayeredPane {
                 cuadros[i][j].putClientProperty("columna", j);
                 // Pondremos la propiedad de su origen:
                 cuadros[i][j].setPuntoInicial(cuadros[i][j].getLocation()); //En forma de punto
-                add(cuadros[i][j],JLayeredPane.DRAG_LAYER); // Porque esto? --> Investigar
+                add(cuadros[i][j],JLayeredPane.DEFAULT_LAYER); // Porque esto? --> Investigar
                 x += tam;
             }
             x = 0;
@@ -48,13 +52,18 @@ public class TableroV extends JLayeredPane {
         }
     }
 
-    // Métodos del get:
-
+    // Métodos Get:
     public Point getPInicial(){
         return pInicial;
     }
-
     public void setPInicial(Point pInicial) {
         this.pInicial = pInicial;
     }
+
+
+    public void paintComponent(Graphics g){
+        super.paintComponent(g);
+    }
+
+
 }
