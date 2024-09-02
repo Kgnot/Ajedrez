@@ -11,10 +11,9 @@ import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.awt.event.MouseMotionListener;
 
-public class ControladorCasilla implements MouseListener, MouseMotionListener {
+public class ControladorCasilla implements MouseListener {
 
     private final Casilla casilla;
-    private Point initialClick;
 
     public ControladorCasilla(Casilla casilla) {
         this.casilla = casilla;
@@ -27,10 +26,6 @@ public class ControladorCasilla implements MouseListener, MouseMotionListener {
 
     @Override
     public void mousePressed(MouseEvent e) {
-        initialClick = e.getPoint();
-        casilla.setSeleccionado(true);
-        casilla.getParent().setComponentZOrder(casilla,0); // Para poner por delante
-        //casilla.setBackground(null);
     }
 
     @Override
@@ -62,20 +57,6 @@ public class ControladorCasilla implements MouseListener, MouseMotionListener {
         casilla.setBackground(color.brighter());
         casilla.setBorder(null);
     }
-    @Override
-    public void mouseDragged(MouseEvent e) {
-        int xCasilla = casilla.getX() + e.getX() - initialClick.x;
-        int yCasilla = casilla.getY() + e.getY() - initialClick.y;
-        if (casilla.isSeleccionado()) {
-            casilla.setLocation(xCasilla, yCasilla);
-        }
-    }
-
-    @Override
-    public void mouseMoved(MouseEvent e) {
-        //Quizas aqui pondremos que rendereizar el tablero
-    }
-
 
     private GestorMovimientos getGestor() {
         return getTablero().getGestorMovimientosAjedrez();

@@ -15,6 +15,11 @@
     </properties>
 
     <dependencies>
+        <dependency>
+            <groupId>cn.itlym.shoulder</groupId>
+            <artifactId>lombok</artifactId>
+            <version>0.1</version>
+        </dependency>
         <!-- https://mvnrepository.com/artifact/org.lwjgl/lwjgl-opengl -->
         <dependency>
             <groupId>org.lwjgl</groupId>
@@ -24,14 +29,10 @@
         <dependency>
             <groupId>org.jetbrains</groupId>
             <artifactId>annotations</artifactId>
-            <version>RELEASE</version>
+            <version>24.1.0</version>
             <scope>compile</scope>
         </dependency>
-        <dependency>
-            <groupId>cn.itlym.shoulder</groupId>
-            <artifactId>lombok</artifactId>
-            <version>0.1</version>
-        </dependency>
+
     </dependencies>
 
 

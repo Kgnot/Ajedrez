@@ -2,10 +2,14 @@ package game.model;
 
 import game.core.logic.tablero.Tablero;
 import game.ui.view.juego.*;
-import game.render.RenderTablero;
+import game.ui.render.RenderTablero;
+import game.util.Observable;
+import game.util.posicionamiento.ObservableMovimientos;
 
 public class Modelo {
 
+    //Cremoas un singleton de un observer
+    private static Observable o_Movimiento;
     // creamos las vistas
     private Ventana ventana;
     private JuegoVista juegoVista;
@@ -14,6 +18,15 @@ public class Modelo {
     // RENDER
     private RenderTablero renderTablero;
 
+    // Observer:
+    public static Observable getO_Movimiento() {
+        if (o_Movimiento == null) {
+            o_Movimiento = new ObservableMovimientos();
+        }
+        return o_Movimiento;
+    }
+
+
     // Getters - Lógica
     public Tablero getTablero() {
         if (tablero == null) {
@@ -21,6 +34,7 @@ public class Modelo {
         }
         return tablero;
     }
+
     // Visual
     public Ventana getVentana() {
         if (ventana == null) {
@@ -29,16 +43,16 @@ public class Modelo {
         return ventana;
     }
 
-    public JuegoVista getJuegoVista(){
-        if(juegoVista == null){
+    public JuegoVista getJuegoVista() {
+        if (juegoVista == null) {
             juegoVista = new JuegoVista(this);
         }
         return juegoVista;
     }
     //  Render
 
-    public RenderTablero getRenderTablero(){
-        if(renderTablero == null){
+    public RenderTablero getRenderTablero() {
+        if (renderTablero == null) {
             renderTablero = new RenderTablero(this);
         }
         return renderTablero;

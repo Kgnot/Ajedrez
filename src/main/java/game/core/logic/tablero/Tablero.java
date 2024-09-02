@@ -4,33 +4,20 @@ import game.core.logic.Fichas;
 import game.core.logic.fichas.*;
 import game.core.logic.movimientos.GestorMovimientos;
 import game.core.logic.propiedades.Color;
+import lombok.Getter;
 
 public class Tablero {
 
+    @Getter
     private final Fichas[][] tablero;
     private volatile boolean haCambiado = false;
+    @Getter
     private final GestorMovimientos gestorMovimientosAjedrez;
 
     public Tablero() {
         tablero = new Fichas[8][8];
         gestorMovimientosAjedrez = new GestorMovimientos(this);
         initFichasTablero();
-    }
-
-    public Fichas[][] getTablero() {
-        return tablero;
-    }
-
-    public void tableroToString() {
-       /* for (Fichas[] f : tablero) {
-            for (Fichas ficha : f) {
-                System.out.print(
-                        ficha == null ? " null - " :
-                                ficha.getTipo() + " -");
-
-            }
-            System.out.println();
-        }*/
     }
     private void initFichasTablero() {
         for (int x = 0; x < 8; x++) {
@@ -70,7 +57,4 @@ public class Tablero {
         return haCambiado;
     }
 
-    public GestorMovimientos getGestorMovimientosAjedrez() {
-        return gestorMovimientosAjedrez;
-    }
 }

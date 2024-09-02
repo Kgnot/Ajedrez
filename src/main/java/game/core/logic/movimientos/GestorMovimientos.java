@@ -18,7 +18,7 @@ public class GestorMovimientos {
         movimientoResultado = new MovimientoResultado(); // como solo se inicializa una vez podemos llamarlo ene l constructor sin necesidad de un singleton
     }
 
-    public synchronized void setFicha(Point coordenadaInicial, Point coordenadaFinal, Fichas ficha) {
+    public synchronized boolean setFicha(Point coordenadaInicial, Point coordenadaFinal, Fichas ficha) {
         //Iniciales
         int filaInicial = coordenadaInicial.x; // Los X son las filas
         int columnaInicial = coordenadaInicial.y; // Las Y son las columnas
@@ -31,7 +31,8 @@ public class GestorMovimientos {
          * y la validación si hay alguna ficha por ahí.
          */
         if (!verificarPosicionFinal(coordenadaFinal)) {
-            return; // mirar esto
+            System.out.println("es falso por coordenada final");
+            return false; // mirar esto
         }
         if (casilla != null) {
             if (Fichas.getFichaManejable().getEnemigo() == casilla.getColor()) {
@@ -40,10 +41,10 @@ public class GestorMovimientos {
                 tablero.setEstado(true); // me identifica si ha cambiado o no
                 notifyAll(); // notifica al hilo que espera
                 movimientoResultado.reiniciar();
-                return;
+                return true;
             }
             movimientoResultado.reiniciar();
-            return;
+            return false;
         }
 
         tablero.getTablero()[filaInicial][columnaInicial] = null;
@@ -52,11 +53,13 @@ public class GestorMovimientos {
         tablero.setEstado(true); // me identifica si ha cambiado o no
         notifyAll(); // notifica al hilo que espera
         movimientoResultado.reiniciar();
-
+    return true;
     }
 
     private boolean verificarPosicionFinal(Point coordenadaFinal) {
         var validMov = movimientoResultado.getMovimientosValidos();
+        System.out.println("movimientos validos eran: "+validMov);
+        System.out.println("escogio: "+coordenadaFinal);
         var enemigo = movimientoResultado.getEnemigos();
         return validMov.contains(coordenadaFinal) || enemigo.contains(coordenadaFinal);
 
