@@ -1,7 +1,6 @@
 package game.ui.render;
 
 import game.model.Modelo;
-import game.util.posicionamiento.ObserverFicha;
 
 public class RenderTablero extends Thread {
     private final Modelo modelo;
@@ -26,7 +25,7 @@ public class RenderTablero extends Thread {
                     int posX = tam * j ;
                     int posY = tam * i;
                     var ficha =rf.renderImage(tipo,color,posX,posY);
-                    ficha.setO(new ObserverFicha(tablero,ficha));
+                    ficha.setModelo(modelo);
                     vistaTablero.add(ficha,0); // Usa el layout manager para añadir la entidad
                 }
             }

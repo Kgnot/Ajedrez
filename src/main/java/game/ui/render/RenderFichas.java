@@ -6,9 +6,7 @@ import game.ui.extra.Entity;
 import game.ui.extra.entidades.*;
 
 public class RenderFichas {
-
     private int tam;
-
     public RenderFichas(int tam) {
         this.tam = tam;
     }

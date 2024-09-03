@@ -13,10 +13,6 @@ public abstract class Fichas {
 
     protected Color color;
     protected Tipo tipo;
-    @Setter
-    @Getter
-    private static Fichas fichaManejable;
-
     public Fichas(Color color, Tipo tipo) {
         this.color = color;
         this.tipo = tipo;

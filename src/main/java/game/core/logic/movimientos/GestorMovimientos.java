@@ -18,26 +18,25 @@ public class GestorMovimientos {
         movimientoResultado = new MovimientoResultado(); // como solo se inicializa una vez podemos llamarlo ene l constructor sin necesidad de un singleton
     }
 
-    public synchronized boolean setFicha(Point coordenadaInicial, Point coordenadaFinal, Fichas ficha) {
+    public synchronized boolean setFicha(Point casillaInicial, Point casillaFinal, Fichas ficha) {
+        // Primero miramos los puntos válidos y de enemigos:
+        movimientos_y_enemigosPosibles(casillaInicial,ficha);
         //Iniciales
-        int filaInicial = coordenadaInicial.x; // Los X son las filas
-        int columnaInicial = coordenadaInicial.y; // Las Y son las columnas
+        int filaInicial = casillaInicial.x; // Los X son las filas
+        int columnaInicial = casillaInicial.y; // Las Y son las columnas
         // Finales
-        int filaFinal = coordenadaFinal.x, columnaFinal = coordenadaFinal.y;
+        int filaFinal = casillaFinal.x, columnaFinal = casillaFinal.y;
         var casilla = tablero.getTablero()[filaFinal][columnaFinal];
-        /*Condición para verificar si se puede mover a donde es, primero es sacar
-         * la coordenada, luego, tenemos los posibles movimientos, solo los alargamos
-         * menos al caballo, además, falta la de matar, asi que haremos privates para hacer el cambio
-         * y la validación si hay alguna ficha por ahí.
-         */
-        if (!verificarPosicionFinal(coordenadaFinal)) {
+        // Verificación
+        if (!verificarPosicionFinal(casillaFinal)) {
             System.out.println("es falso por coordenada final");
             return false; // mirar esto
         }
         if (casilla != null) {
-            if (Fichas.getFichaManejable().getEnemigo() == casilla.getColor()) {
+            if (ficha.getEnemigo() == casilla.getColor()) { // Para matar al enemigo
                 tablero.getTablero()[filaInicial][columnaInicial] = null;
                 tablero.getTablero()[filaFinal][columnaFinal] = ficha;
+
                 tablero.setEstado(true); // me identifica si ha cambiado o no
                 notifyAll(); // notifica al hilo que espera
                 movimientoResultado.reiniciar();
@@ -58,8 +57,6 @@ public class GestorMovimientos {
 
     private boolean verificarPosicionFinal(Point coordenadaFinal) {
         var validMov = movimientoResultado.getMovimientosValidos();
-        System.out.println("movimientos validos eran: "+validMov);
-        System.out.println("escogio: "+coordenadaFinal);
         var enemigo = movimientoResultado.getEnemigos();
         return validMov.contains(coordenadaFinal) || enemigo.contains(coordenadaFinal);
 

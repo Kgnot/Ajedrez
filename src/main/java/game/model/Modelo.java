@@ -1,39 +1,32 @@
 package game.model;
 
+import game.core.logic.tablero.BuildTableroAjedrez;
+import game.core.logic.tablero.BuilderTablero;
+import game.core.logic.tablero.Director;
 import game.core.logic.tablero.Tablero;
 import game.ui.view.juego.*;
 import game.ui.render.RenderTablero;
-import game.util.Observable;
-import game.util.posicionamiento.ObservableMovimientos;
+import lombok.Getter;
 
 public class Modelo {
 
     //Cremoas un singleton de un observer
-    private static Observable o_Movimiento;
     // creamos las vistas
     private Ventana ventana;
     private JuegoVista juegoVista;
     //Apartado de logica
+    @Getter
     private Tablero tablero;
     // RENDER
     private RenderTablero renderTablero;
 
-    // Observer:
-    public static Observable getO_Movimiento() {
-        if (o_Movimiento == null) {
-            o_Movimiento = new ObservableMovimientos();
-        }
-        return o_Movimiento;
-    }
-
-
     // Getters - Lógica
-    public Tablero getTablero() {
-        if (tablero == null) {
-            tablero = new Tablero();
-        }
-        return tablero;
-    }
+//    public Tablero getTablero() {
+//        if (tablero == null) {
+//            tablero = new Tablero();
+//        }
+//        return tablero;
+//    }
 
     // Visual
     public Ventana getVentana() {
@@ -65,7 +58,11 @@ public class Modelo {
         getVentana().pack();
         getVentana().setLocationRelativeTo(null); // para centrarlo
         // Luego la lógica
-        getTablero(); // Llamamos al tablero de una vez e inicializamos
+        BuilderTablero builder = new BuildTableroAjedrez(); // Iniciamos el tablero de ajedrez
+        Director director = new Director(builder);
+        tablero = director.construirTablero();
+
+        // render
         getRenderTablero().start();
     }
 

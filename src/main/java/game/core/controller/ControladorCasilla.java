@@ -30,18 +30,6 @@ public class ControladorCasilla implements MouseListener {
 
     @Override
     public void mouseReleased(MouseEvent e) {
-        casilla.setLocation(casilla.getPuntoInicial()); // Devuelve
-        switch (e.getButton()) {
-            case 1:
-                casilla.setSeleccionado(true);
-                setPInicial(seleccionar());
-                break;
-            case 3:
-                posicionar(getPInicial());
-                break;
-            default:
-                break;
-        }
     }
 
     @Override
@@ -58,52 +46,4 @@ public class ControladorCasilla implements MouseListener {
         casilla.setBorder(null);
     }
 
-    private GestorMovimientos getGestor() {
-        return getTablero().getGestorMovimientosAjedrez();
-    }
-
-    private Tablero getTablero() {
-        return casilla.getTablero().getModelo().getTablero();
-    }
-
-    private Fichas getFicha() {
-        return Fichas.getFichaManejable();
-    }
-
-    private void setFicha(Fichas item) {
-        Fichas.setFichaManejable(item);
-    }
-
-    private Point getPInicial() {
-        return casilla.getTablero().getPInicial();
-    }
-
-    private void setPInicial(Point pInicial) {
-        casilla.getTablero().setPInicial(pInicial);
-    }
-
-    // Importantes:
-
-
-    private Point seleccionar() {
-        int fila = (Integer) casilla.getClientProperty("fila");
-        int columna = (Integer) casilla.getClientProperty("columna");
-        Fichas fichaSeleccionada = getTablero().getTablero()[fila][columna];
-        setFicha(fichaSeleccionada);
-        if (fichaSeleccionada == null) {
-            return null;
-        }
-        getGestor().movimientos_y_enemigosPosibles(new Point(fila, columna), fichaSeleccionada);
-        return new Point(fila, columna);
-    }
-
-    private void posicionar(Point coordenadaInicial) {
-        if (coordenadaInicial == null) {
-            return;
-        }
-        int fila = (Integer) casilla.getClientProperty("fila");
-        int columna = (Integer) casilla.getClientProperty("columna");
-        Point coordenadaFinal = new Point(fila, columna);
-        getGestor().setFicha(coordenadaInicial, coordenadaFinal, getFicha()); ////////////////////////////////////////- se usa aca si algo
-    }
 }
