@@ -1,13 +1,15 @@
-package game.core.logic.tablero;
+package game.core.logic.builder;
 
-public class Director {
+import game.core.logic.tablero.Tablero;
+
+public class DirectorTablero {
 
     private BuilderTablero build;
 
-    public Director(){
+    public DirectorTablero(){
 
     }
-    public Director(BuilderTablero build){
+    public DirectorTablero(BuilderTablero build){
         this.build = build;
     }
 

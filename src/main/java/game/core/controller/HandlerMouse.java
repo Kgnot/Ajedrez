@@ -2,6 +2,7 @@ package game.core.controller;
 
 import game.core.logic.tablero.Tablero;
 import game.ui.extra.Entity;
+import game.ui.view.juego.tab.TableroV;
 
 import java.awt.*;
 import java.awt.event.MouseEvent;
@@ -10,7 +11,7 @@ import java.awt.event.MouseMotionListener;
 
 public class HandlerMouse implements MouseListener, MouseMotionListener {
 
-    private Entity entidad;
+    private final Entity entidad;
     private Point initialClick;
 
     public HandlerMouse(Entity entidad) {
@@ -31,6 +32,7 @@ public class HandlerMouse implements MouseListener, MouseMotionListener {
 
     @Override
     public void mouseReleased(MouseEvent e) {
+
         int tam = entidad.getWidth(), xFinal = entidad.getLocation().x + (tam / 2), yFinal = entidad.getLocation().y + (tam / 2);
         Point puntoFinal = new Point(yFinal, xFinal); // como el punto final es Fila - Columna es (y,x)
         Point casillaInicial = entidad.getCasillaInicial();
@@ -82,7 +84,8 @@ public class HandlerMouse implements MouseListener, MouseMotionListener {
     }
 
     private Tablero getTablero(){
-        return entidad.getModelo().getTablero();
+        var modelo = (TableroV) entidad.getParent();
+        return modelo.getModelo().getTablero();
     }
 
 }

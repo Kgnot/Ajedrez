@@ -1,8 +1,10 @@
 package game.ui.view.juego.tab;
 
 import game.model.Modelo;
+import game.ui.extra.Entity;
 import lombok.Getter;
 import java.awt.*;
+import java.util.ArrayList;
 import javax.swing.*;
 
 public class TableroV extends JLayeredPane {
@@ -10,23 +12,22 @@ public class TableroV extends JLayeredPane {
     @Getter
     private final Casilla[][] cuadros;
     @Getter
+    private ArrayList<Entity> entidades;
+    @Getter
     private final int tam;
     @Getter
     private final Modelo modelo;
     private Point pInicial;
 
     public TableroV(int tam, Modelo modelo) {
+        entidades = new ArrayList<>();
         this.modelo = modelo;
         this.tam = tam;
         cuadros = new Casilla[8][8];
         setLayout(null); // necesario ponerlo en null
         setSize(new Dimension(tam * 8, tam * 8));
         // iniciamos
-       initTableroLogico(); // aquí agregamos el controlador de una vez
-//
-//        peon = new PeonEntity(50,50);
-//        peon.setSize(tam, tam); // Asegurarse de que tenga un tamaño
-//        add(peon,0);
+        initTableroLogico(); // aquí agregamos el controlador de una vez
     }
 
     private void initTableroLogico() {
@@ -53,10 +54,20 @@ public class TableroV extends JLayeredPane {
     }
 
     // Métodos Get:
-    public Point getPInicial(){
+    public Point getPInicial() {
         return pInicial;
     }
+
     public void setPInicial(Point pInicial) {
         this.pInicial = pInicial;
     }
+    public void setEntidad(Entity entidad){
+        entidades.add(entidad);
+        this.add(entidad,0);
     }
+
+    public Modelo getModelo(){
+        return modelo;
+    }
+
+}

@@ -1,8 +1,8 @@
 package game.model;
 
-import game.core.logic.tablero.BuildTableroAjedrez;
-import game.core.logic.tablero.BuilderTablero;
-import game.core.logic.tablero.Director;
+import game.core.logic.builder.BuildTableroAjedrez;
+import game.core.logic.builder.BuilderTablero;
+import game.core.logic.builder.DirectorTablero;
 import game.core.logic.tablero.Tablero;
 import game.ui.view.juego.*;
 import game.ui.render.RenderTablero;
@@ -19,15 +19,6 @@ public class Modelo {
     private Tablero tablero;
     // RENDER
     private RenderTablero renderTablero;
-
-    // Getters - Lógica
-//    public Tablero getTablero() {
-//        if (tablero == null) {
-//            tablero = new Tablero();
-//        }
-//        return tablero;
-//    }
-
     // Visual
     public Ventana getVentana() {
         if (ventana == null) {
@@ -59,7 +50,7 @@ public class Modelo {
         getVentana().setLocationRelativeTo(null); // para centrarlo
         // Luego la lógica
         BuilderTablero builder = new BuildTableroAjedrez(); // Iniciamos el tablero de ajedrez
-        Director director = new Director(builder);
+        DirectorTablero director = new DirectorTablero(builder);
         tablero = director.construirTablero();
 
         // render

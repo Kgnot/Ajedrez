@@ -17,7 +17,6 @@ public class Entity extends JComponent {
     protected int tam;  // Tamaño de la entidad
     protected Point casillaFinal; // a donde se va a mover la entidad
     protected Estado estado;
-    protected Modelo modelo;
     protected Fichas ficha;
 
     public Entity(int x, int y, int tam) {

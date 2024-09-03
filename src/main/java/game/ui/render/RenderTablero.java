@@ -25,8 +25,7 @@ public class RenderTablero extends Thread {
                     int posX = tam * j ;
                     int posY = tam * i;
                     var ficha =rf.renderImage(tipo,color,posX,posY);
-                    ficha.setModelo(modelo);
-                    vistaTablero.add(ficha,0); // Usa el layout manager para añadir la entidad
+                    vistaTablero.setEntidad(ficha);
                 }
             }
         }
