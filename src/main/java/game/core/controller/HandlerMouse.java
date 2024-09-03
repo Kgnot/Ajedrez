@@ -20,21 +20,19 @@ public class HandlerMouse implements MouseListener, MouseMotionListener {
 
     @Override
     public void mouseClicked(MouseEvent e) {
-        System.out.println("Click");
-        System.out.println("fila: " + entidad.getCasillaInicial().x);
-        System.out.println("columna: " + entidad.getCasillaInicial().y);
     }
 
     @Override
     public void mousePressed(MouseEvent e) {
         initialClick = e.getPoint();
+        // En mouse pressed vamos a cambiarle la imagen
+        entidad.estadoSelect();
     }
 
     @Override
     public void mouseReleased(MouseEvent e) {
-
+        entidad.estadoOriginal(); // lo devolvemos al estado original
         int tam = entidad.getWidth(), xFinal = entidad.getLocation().x + (tam / 2), yFinal = entidad.getLocation().y + (tam / 2);
-        Point puntoFinal = new Point(yFinal, xFinal); // como el punto final es Fila - Columna es (y,x)
         Point casillaInicial = entidad.getCasillaInicial();
         // ¿Dónde cayó?
         int casillaFila = (yFinal / tam), casillaColumna = (xFinal / tam);

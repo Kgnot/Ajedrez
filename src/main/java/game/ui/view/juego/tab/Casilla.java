@@ -1,28 +1,32 @@
 package game.ui.view.juego.tab;
 
-import game.core.controller.ControladorCasilla;
 import lombok.Getter;
 import lombok.Setter;
 
 import javax.swing.*;
 import java.awt.*;
+import java.util.Objects;
 
+@Getter
 public class Casilla extends JPanel {
 
-    @Getter
     private final TableroV tablero; // las casillas necesitan meterse a algún modelo
-    @Getter
     @Setter
     private boolean seleccionado;
-    @Getter
     @Setter
     private Point puntoInicial;
+    private final ImageIcon imageIcon;
 
     public Casilla(TableroV tablero) {
-        ControladorCasilla controlador = new ControladorCasilla(this);
         this.tablero = tablero;
         seleccionado = false; // lo inicializamos falso
-        addMouseListener(controlador);
+        imageIcon = new ImageIcon(Objects.requireNonNull(getClass().getResource("/iconos/pixelArt/Casilla.png")));
+    }
+
+    @Override
+    protected void paintComponent(Graphics g){
+        super.paintComponent(g);
+        g.drawImage(imageIcon.getImage(),0,0,getWidth(),getHeight(),this);
     }
 
 

@@ -15,13 +15,17 @@ public class RenderFichas {
     public Entity renderImage(Tipo tipo, Color color, int posX, int posY) {
         String imagePath = getImagePath(tipo, color);
         var ficha = new FichaEntity(posX, posY, tam, imagePath);
+
         switch (tipo) {
             case REY -> ficha.setFicha(new Rey(color));
             case REINA -> ficha.setFicha(new Reina(color));
             case ALFIL -> ficha.setFicha(new Alfil(color));
             case TORRE -> ficha.setFicha(new Torre(color));
             case CABALLO -> ficha.setFicha(new Caballo(color));
-            case PEON -> ficha.setFicha(new Peon(color));
+            case PEON -> {
+                ficha.setImagenSelect("/iconos/pixelArt/blancos/select/PeonSelect.png");
+                ficha.setFicha(new Peon(color));
+            }
         }
         return ficha;
     }
