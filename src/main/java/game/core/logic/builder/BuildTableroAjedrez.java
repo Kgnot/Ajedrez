@@ -28,34 +28,42 @@ public class BuildTableroAjedrez extends BuilderTablero{
 
     private void buildPeones() {
         // Colocar peones en la fila 2 y 7
+        Peon peonNegro = new Peon(Color.NEGRO);
+        Peon peonBlanc = new Peon(Color.BLANCO);
         for (int x = 0; x < 8; x++) {
-            tablero.setFicha(1, x, new Peon(Color.NEGRO)); // Peones Negros
-            tablero.setFicha(6, x, new Peon(Color.BLANCO)); // Peones Blancos
+            tablero.setFicha(1, x, peonNegro.clone()); // Peones Negros
+            tablero.setFicha(6, x, peonBlanc.clone()); // Peones Blancos
         }
     }
 
     private void buildTorres() {
+        Torre torreNegra = new Torre(Color.NEGRO);
+        Torre torreBlanca = new Torre(Color.BLANCO);
         // Colocar torres
-        tablero.setFicha(0, 0, new Torre(Color.NEGRO)); // Torre Negra 1
-        tablero.setFicha(0, 7, new Torre(Color.NEGRO)); // Torre Negra 2
-        tablero.setFicha(7, 0, new Torre(Color.BLANCO)); // Torre Blanca 1
-        tablero.setFicha(7, 7, new Torre(Color.BLANCO)); // Torre Blanca 2
+        tablero.setFicha(0, 0, torreNegra.clone()); // Torre Negra 1
+        tablero.setFicha(0, 7, torreNegra.clone()); // Torre Negra 2
+        tablero.setFicha(7, 0, torreBlanca.clone()); // Torre Blanca 1
+        tablero.setFicha(7, 7, torreBlanca.clone()); // Torre Blanca 2
     }
 
     private void buildCaballos() {
+        Caballo caballoNegro = new Caballo(Color.NEGRO);
+        Caballo caballoBlanco = new Caballo(Color.BLANCO);
         // Colocar caballos
-        tablero.setFicha(0, 1, new Caballo(Color.NEGRO));
-        tablero.setFicha(0, 6, new Caballo(Color.NEGRO));
-        tablero.setFicha(7, 1, new Caballo(Color.BLANCO));
-        tablero.setFicha(7, 6, new Caballo(Color.BLANCO));
+        tablero.setFicha(0, 1, caballoNegro.clone());
+        tablero.setFicha(0, 6, caballoNegro.clone());
+        tablero.setFicha(7, 1, caballoBlanco.clone());
+        tablero.setFicha(7, 6, caballoBlanco.clone());
     }
 
     private void buildAlfiles() {
+        Alfil alfilNegro = new Alfil(Color.NEGRO);
+        Alfil alfilBlanco = new Alfil(Color.BLANCO);
         // Colocar alfiles
-        tablero.setFicha(0, 2, new Alfil(Color.NEGRO));
-        tablero.setFicha(0, 5, new Alfil(Color.NEGRO));
-        tablero.setFicha(7, 2, new Alfil(Color.BLANCO));
-        tablero.setFicha(7, 5, new Alfil(Color.BLANCO));
+        tablero.setFicha(0, 2, alfilNegro.clone());
+        tablero.setFicha(0, 5, alfilNegro.clone());
+        tablero.setFicha(7, 2, alfilBlanco.clone());
+        tablero.setFicha(7, 5, alfilBlanco.clone());
     }
 
     private void buildReinaYRey() {
@@ -65,7 +73,5 @@ public class BuildTableroAjedrez extends BuilderTablero{
         tablero.setFicha(7, 3, new Reina(Color.BLANCO));
         tablero.setFicha(7, 4, new Rey(Color.BLANCO));
     }
-
-
 
 }

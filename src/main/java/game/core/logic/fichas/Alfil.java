@@ -9,8 +9,12 @@ import java.util.HashSet;
 import java.util.Set;
 
 public class Alfil extends Fichas {
-    public Alfil(Color color) {
-        super(color, Tipo.ALFIL);
+
+    public Alfil(Color color){
+        super(color,Tipo.ALFIL);
+    }
+    public Alfil(Alfil alfil) {
+        super(alfil);
     }
 
     @Override
@@ -22,5 +26,10 @@ public class Alfil extends Fichas {
         puntos.add(new Point(-1, 1));
         puntos.add(new Point(-1, -1));
         return puntos;
+    }
+
+    @Override
+    public Alfil clone() {
+        return new Alfil(this);
     }
 }

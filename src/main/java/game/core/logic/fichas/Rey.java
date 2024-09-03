@@ -12,9 +12,14 @@ public class Rey extends Fichas {
     public Rey(Color color) {
         super(color, Tipo.REY);
     }
-
+    public Rey(Rey rey){super(rey);}
     @Override
     public Set<Point> movimiento() {
         return null;
+    }
+
+    @Override
+    public Fichas clone() {
+        return new Rey(this);
     }
 }

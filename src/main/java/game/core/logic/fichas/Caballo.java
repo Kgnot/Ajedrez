@@ -13,7 +13,9 @@ public class Caballo extends Fichas {
     public Caballo(Color color) {
         super(color, Tipo.CABALLO);
     }
-
+    public Caballo(Caballo caballo){
+        super(caballo);
+    }
     @Override
     public Set<Point> movimiento() {
         return new HashSet<>(Arrays.asList(
@@ -26,5 +28,10 @@ public class Caballo extends Fichas {
                 new Point(-2, -1),
                 new Point(-2, 1)
         ));
+    }
+
+    @Override
+    public Caballo clone() {
+        return new Caballo(this);
     }
 }

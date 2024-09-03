@@ -15,7 +15,7 @@ public class Torre extends Fichas {
     public Torre(Color color) {
         super(color, Tipo.TORRE);
     }
-
+    public Torre(Torre torre){super(torre);}
     @Override
     public Set<Point> movimiento() {
 
@@ -26,5 +26,10 @@ public class Torre extends Fichas {
                 new Point(0, 1),
                 new Point(0, -1)
                 ));
+    }
+
+    @Override
+    public Fichas clone() {
+        return new Torre(this);
     }
 }

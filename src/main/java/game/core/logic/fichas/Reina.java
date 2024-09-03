@@ -14,7 +14,7 @@ public class Reina extends Fichas {
     public Reina(Color color) {
         super(color, Tipo.REINA);
     }
-
+    public Reina(Reina reina){super(reina);}
     @Override
     public Set<Point> movimiento() {
         return new HashSet<>(Arrays.asList(
@@ -27,5 +27,10 @@ public class Reina extends Fichas {
                 new Point(-1, 1),
                 new Point(-1, -1)
         ));
+    }
+
+    @Override
+    public Reina clone() {
+        return new Reina(this);
     }
 }

@@ -5,8 +5,6 @@ import game.core.logic.tablero.Tablero;
 import lombok.Getter;
 
 import java.awt.*;
-import java.util.HashSet;
-import java.util.Set;
 
 public class GestorMovimientos {
     private final Tablero tablero;
@@ -55,6 +53,14 @@ public class GestorMovimientos {
     return true;
     }
 
+   /* public synchronized void esperarCambio() throws InterruptedException {
+        while (!tablero.getEstado()) {
+            wait(); // Espera hasta que haya un cambio en el tablero
+        }
+        tablero.setEstado(false); // Restablece el estado
+    }*/
+
+
     private boolean verificarPosicionFinal(Point coordenadaFinal) {
         var validMov = movimientoResultado.getMovimientosValidos();
         var enemigo = movimientoResultado.getEnemigos();
@@ -62,7 +68,7 @@ public class GestorMovimientos {
 
     }
 
-    public void movimientos_y_enemigosPosibles(Point coordenadaInicial, Fichas ficha) {
+    private void movimientos_y_enemigosPosibles(Point coordenadaInicial, Fichas ficha) {
         switch (ficha.getTipo())
         {
             case PEON -> movimientoResultado.movimientoPeon(coordenadaInicial,ficha,tablero);
@@ -71,11 +77,5 @@ public class GestorMovimientos {
         }
     }
 
-    public synchronized void esperarCambio() throws InterruptedException {
-        while (!tablero.getEstado()) {
-            wait(); // Espera hasta que haya un cambio en el tablero
-        }
-        tablero.setEstado(false); // Restablece el estado
-    }
 
 }
