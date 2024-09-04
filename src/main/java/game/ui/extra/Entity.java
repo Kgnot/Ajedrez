@@ -1,6 +1,5 @@
 package game.ui.extra;
 
-import game.core.logic.Fichas;
 import lombok.Getter;
 import lombok.Setter;
 

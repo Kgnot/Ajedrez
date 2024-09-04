@@ -5,12 +5,8 @@ import game.ui.extra.FichaEntity;
 import java.awt.*;
 
 public class OtherEntity extends FichaEntity {
-
-    private String pathSelect; // sería porque uso
-    private String pathOriginal;
     public OtherEntity(int x, int y, int tam, String path) {
         super(x, y, tam, path);
-
     }
     @Override
     protected void paintComponent(Graphics g) {

@@ -55,7 +55,7 @@ public class GestorMovimientos {
     return true;
     }
 
-    public synchronized boolean setFichaSimple(Point casillaInicial, Point casillaFinal){
+    public synchronized void setFichaSimple(Point casillaInicial, Point casillaFinal){
         int filaInicial = casillaInicial.x; // Los X son las filas
         int columnaInicial = casillaInicial.y; // Las Y son las columnas
         int filaFinal = casillaFinal.x, columnaFinal = casillaFinal.y;
@@ -65,7 +65,6 @@ public class GestorMovimientos {
         tablero.setEstado(true); // me identifica si ha cambiado o no
         notifyAll(); // notifica al hilo que espera
         movimientoResultado.reiniciar();
-        return true;
     }
     public synchronized void esperarCambio() throws InterruptedException {
         while (!tablero.getEstado()) {

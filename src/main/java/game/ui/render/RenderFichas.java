@@ -1,9 +1,7 @@
 package game.ui.render;
 
-import game.core.logic.fichas.*;
 import game.core.logic.propiedades.*;
 import game.ui.extra.Entity;
-import game.ui.extra.FichaEntity;
 import game.ui.extra.entidades.OtherEntity;
 import game.ui.extra.entidades.PeonEntity;
 

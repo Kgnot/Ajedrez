@@ -1,9 +1,5 @@
 package game.network;
 
-import game.core.logic.Fichas;
-import game.core.logic.fichas.Alfil;
-import game.core.logic.propiedades.Color;
-import game.core.logic.propiedades.Tipo;
 import game.model.Modelo;
 import game.util.CipherUtility;
 
@@ -13,8 +9,8 @@ import java.net.Socket;
 
 public class Cliente {
 
-    private int PUERTO = 1234;
-    private String HOST =  "192.168.1.5";
+    private static final int PUERTO = 1234;
+    private final String HOST =  "192.168.1.5";
     private Socket sc;
     private OutputStreamWriter out;
     private BufferedReader in;
@@ -39,7 +35,6 @@ public class Cliente {
                         System.out.println("Mensaje recibido: " + msj);
                         //
                         Object [] datos = CipherUtility.getInstance().decryptMensajeFicha(msj);
-                        System.out.println(datos);
                         if(datos !=null){
                             Point ini = (Point) datos[1];
                             Point fin =(Point) datos[2];

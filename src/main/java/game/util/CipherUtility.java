@@ -1,7 +1,5 @@
 package game.util;
 
-import game.core.logic.Fichas;
-
 import java.awt.*;
 
 public class CipherUtility {

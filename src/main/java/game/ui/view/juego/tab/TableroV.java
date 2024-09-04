@@ -3,17 +3,15 @@ package game.ui.view.juego.tab;
 import game.model.Modelo;
 import game.ui.extra.Entity;
 import lombok.Getter;
-import lombok.Setter;
 
 import java.awt.*;
 import java.util.ArrayList;
-import java.util.Objects;
 import javax.swing.*;
 
 @Getter
 public class TableroV extends JLayeredPane {
-    private Casilla[][] cuadros;
-    private ArrayList<Entity> entidades;
+    private final Casilla[][] cuadros;
+    private final ArrayList<Entity> entidades;
     private final int tam;
     private final Modelo modelo;
 
@@ -31,8 +29,6 @@ public class TableroV extends JLayeredPane {
     }
 
     private void initTableroLogico() {
-        Color color1 = new Color(52, 73, 94);
-        Color color2 = null;
         int x = 0, y = 0;
         for (int i = 0; i < 8; i++) {
             for (int j = 0; j < 8; j++) {
@@ -40,7 +36,7 @@ public class TableroV extends JLayeredPane {
                 cuadros[i][j].setSize(tam, tam);
                 cuadros[i][j].setBounds(x, y, tam, tam);
                 //cuadros[i][j].setBackground(((j + i) % 2) == 0 ? color1 : color2);
-                cuadros[i][j].putClientProperty("fila", i);   // Aqui agego las propiedades, pero, donde esta el coso ubicado originalmente?, lo pondremos:
+                cuadros[i][j].putClientProperty("fila", i);   // Aquí agrego las propiedades, pero, donde esta el coso ubicado originalmente?, lo pondremos:
                 cuadros[i][j].putClientProperty("columna", j);
                 // Pondremos la propiedad de su origen:
                 cuadros[i][j].setPuntoInicial(cuadros[i][j].getLocation()); //En forma de punto
