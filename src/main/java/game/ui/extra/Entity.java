@@ -14,7 +14,6 @@ public abstract class Entity extends JComponent {
     protected Point casillaInicial;
     protected int tam;  // Tamaño de la entidad
     protected Point casillaFinal; // a donde se va a mover la entidad
-    protected Fichas ficha;
 
     public Entity(int x, int y, int tam) {
         casillaInicial = new Point();

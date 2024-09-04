@@ -4,6 +4,8 @@ import game.core.logic.fichas.*;
 import game.core.logic.propiedades.*;
 import game.ui.extra.Entity;
 import game.ui.extra.FichaEntity;
+import game.ui.extra.entidades.OtherEntity;
+import game.ui.extra.entidades.PeonEntity;
 
 public class RenderFichas {
     private final int tam;
@@ -14,17 +16,33 @@ public class RenderFichas {
 
     public Entity renderImage(Tipo tipo, Color color, int posX, int posY) {
         String imagePath = getImagePath(tipo, color);
-        var ficha = new FichaEntity(posX, posY, tam, imagePath);
+        var ficha = new OtherEntity(posX, posY, tam, imagePath);
+        var fichaPeon = new PeonEntity(posX,posY,tam,imagePath);
 
         switch (tipo) {
-            case REY -> ficha.setFicha(new Rey(color));
-            case REINA -> ficha.setFicha(new Reina(color));
-            case ALFIL -> ficha.setFicha(new Alfil(color));
-            case TORRE -> ficha.setFicha(new Torre(color));
-            case CABALLO -> ficha.setFicha(new Caballo(color));
+            case REY -> {
+                ficha.setImagenSelect(color.equals(Color.BLANCO)?"/iconos/pixelArt/blancos/select/PeonSelect.png": "/iconos/pixelArt/negros/select/peon.png");
+                return ficha;
+            }
+            case REINA -> {
+                ficha.setImagenSelect(color.equals(Color.BLANCO)?"/iconos/pixelArt/blancos/select/PeonSelect.png": "/iconos/pixelArt/negros/select/peon.png");
+                return ficha;
+            }
+            case ALFIL -> {
+                ficha.setImagenSelect(color.equals(Color.BLANCO)?"/iconos/pixelArt/blancos/select/PeonSelect.png": "/iconos/pixelArt/negros/select/peon.png");
+                return ficha;
+            }
+            case TORRE -> {
+                ficha.setImagenSelect(color.equals(Color.BLANCO)?"/iconos/pixelArt/blancos/select/PeonSelect.png": "/iconos/pixelArt/negros/select/peon.png");
+                return ficha;
+            }
+            case CABALLO -> {
+                ficha.setImagenSelect(color.equals(Color.BLANCO)?"/iconos/pixelArt/blancos/select/PeonSelect.png": "/iconos/pixelArt/negros/select/peon.png");
+                return ficha;
+            }
             case PEON -> {
-                ficha.setImagenSelect("/iconos/pixelArt/blancos/select/PeonSelect.png");
-                ficha.setFicha(new Peon(color));
+                fichaPeon.setImagenSelect(color.equals(Color.BLANCO)?"/iconos/pixelArt/blancos/select/PeonSelect.png": "/iconos/pixelArt/negros/select/peon.png");
+                return fichaPeon;
             }
         }
         return ficha;
@@ -40,7 +58,7 @@ public class RenderFichas {
             case REINA -> fileName = "Peon.png";
             case ALFIL -> fileName = "Peon.png";
             case TORRE -> fileName = "Peon.png";
-            case CABALLO -> fileName = "Peon.png";
+            case CABALLO -> fileName = "Caballo.png";
             case PEON -> fileName = "Peon.png";
             default -> throw new IllegalArgumentException("Tipo de ficha desconocido: " + tipo);
         }

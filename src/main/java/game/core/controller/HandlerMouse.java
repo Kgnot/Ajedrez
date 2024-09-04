@@ -42,12 +42,12 @@ public class HandlerMouse implements MouseListener, MouseMotionListener {
         entidad.setCasillaFinal(new Point(casillaFila, casillaColumna)); // mandamos el punto final de mientras
         // Aquí hace la verificación:
         var gestor = getTablero().getGestorMovimientosAjedrez(); // Obtenemos el gestor de movimientos
-        if (gestor.setFicha(casillaInicial, casillaFinal, entidad.getFicha())) {
+        if (gestor.setFicha(casillaInicial, casillaFinal)) {
             entidad.setCasillaInicial(casillaFinal); //el Inicial se vuelve el final
             entidad.setLocation(new Point(casillaFinal.y * tam, casillaFinal.x * tam)); // y lo ubica ahi
             entidad.getParent().setComponentZOrder(entidad, 0);
             getCliente().enviar(CipherUtility.getInstance().encryptMensajeFicha
-                    (entidad.getFicha(), casillaInicial, casillaFinal));
+                    (casillaInicial, casillaFinal));
             return;
         }
         entidad.setCasillaFinal(new Point(0, 0)); // mandamos el punto final al inicio

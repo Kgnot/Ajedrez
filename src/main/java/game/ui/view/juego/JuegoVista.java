@@ -32,7 +32,7 @@ public class JuegoVista extends javax.swing.JPanel {
         PanelTablero.setLayout(new java.awt.GridBagLayout());
 
         AjedrezJuego.setBackground(new java.awt.Color(255, 255, 255));
-        AjedrezJuego.setPreferredSize(new java.awt.Dimension(584, 584));
+        AjedrezJuego.setPreferredSize(new java.awt.Dimension(720, 720));
 
         javax.swing.GroupLayout AjedrezJuegoLayout = new javax.swing.GroupLayout(AjedrezJuego);
         AjedrezJuego.setLayout(AjedrezJuegoLayout);
@@ -46,8 +46,8 @@ public class JuegoVista extends javax.swing.JPanel {
         );
 
         gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.weightx = 580.0;
-        gridBagConstraints.weighty = 580.0;
+        gridBagConstraints.weightx = 720.0;
+        gridBagConstraints.weighty = 720.0;
         PanelTablero.add(AjedrezJuego, gridBagConstraints);
 
         javax.swing.GroupLayout PanelLateralLayout = new javax.swing.GroupLayout(PanelLateral);
@@ -58,7 +58,7 @@ public class JuegoVista extends javax.swing.JPanel {
         );
         PanelLateralLayout.setVerticalGroup(
             PanelLateralLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 618, Short.MAX_VALUE)
+            .addGap(0, 805, Short.MAX_VALUE)
         );
 
         PanelMenu.setBackground(new java.awt.Color(39, 55, 70));
@@ -79,7 +79,7 @@ public class JuegoVista extends javax.swing.JPanel {
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addComponent(PanelTablero, javax.swing.GroupLayout.DEFAULT_SIZE, 794, Short.MAX_VALUE)
+                .addComponent(PanelTablero, javax.swing.GroupLayout.DEFAULT_SIZE, 1070, Short.MAX_VALUE)
                 .addGap(0, 0, 0)
                 .addComponent(PanelLateral, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
             .addComponent(PanelMenu, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -91,7 +91,7 @@ public class JuegoVista extends javax.swing.JPanel {
                 .addGap(0, 0, 0)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(PanelLateral, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(PanelTablero, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 618, Short.MAX_VALUE)))
+                    .addComponent(PanelTablero, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 805, Short.MAX_VALUE)))
         );
     }// </editor-fold>//GEN-END:initComponents
 

@@ -16,12 +16,14 @@ public class GestorMovimientos {
         movimientoResultado = new MovimientoResultado(); // como solo se inicializa una vez podemos llamarlo ene l constructor sin necesidad de un singleton
     }
 
-    public synchronized boolean setFicha(Point casillaInicial, Point casillaFinal, Fichas ficha) {
+    public synchronized boolean setFicha(Point casillaInicial, Point casillaFinal) {
         // Primero miramos los puntos válidos y de enemigos:
-        movimientos_y_enemigosPosibles(casillaInicial,ficha);
         //Iniciales
         int filaInicial = casillaInicial.x; // Los X son las filas
         int columnaInicial = casillaInicial.y; // Las Y son las columnas
+        Fichas ficha = tablero.getTablero()[filaInicial][columnaInicial];
+        movimientos_y_enemigosPosibles(casillaInicial,ficha);
+
         // Finales
         int filaFinal = casillaFinal.x, columnaFinal = casillaFinal.y;
         var casilla = tablero.getTablero()[filaFinal][columnaFinal];
@@ -53,10 +55,11 @@ public class GestorMovimientos {
     return true;
     }
 
-    public synchronized boolean setFichaSimple(Point casillaInicial, Point casillaFinal, Fichas ficha){
+    public synchronized boolean setFichaSimple(Point casillaInicial, Point casillaFinal){
         int filaInicial = casillaInicial.x; // Los X son las filas
         int columnaInicial = casillaInicial.y; // Las Y son las columnas
         int filaFinal = casillaFinal.x, columnaFinal = casillaFinal.y;
+        Fichas ficha = tablero.getTablero()[filaFinal][columnaFinal];
         tablero.getTablero()[filaInicial][columnaInicial] = null;
         tablero.getTablero()[filaFinal][columnaFinal] = ficha;
         tablero.setEstado(true); // me identifica si ha cambiado o no

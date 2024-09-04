@@ -16,17 +16,13 @@ public class CipherUtility {
         return cipherUtility;
     }
 
-    public String encryptMensajeFicha(Fichas ficha, Point inicial, Point f){
-        return ficha.toString() +";"+inicial.x +"|"+inicial.y+";"+f.x+"|"+f.y;
+    public String encryptMensajeFicha(Point inicial, Point f){
+        return inicial.x +"|"+inicial.y+";"+f.x+"|"+f.y;
     }
 
     public Object[] decryptMensajeFicha(String mensaje){
         String[] datos = mensaje.split(";");
-        if(datos.length < 3) return null;
-
-        String[] datosFicha = datos[0].split("\\|"); // Tipo | Color
-        // ni necesito dato ficha wtf
-
+        if(datos.length < 2) return null;
         String pInicialSTR = datos[1];
         String pFinalSTR = datos[2];
 
@@ -37,7 +33,7 @@ public class CipherUtility {
 
         int[] p1 =cambioPerspectiva(ix,iy);
         int[] p2 = cambioPerspectiva(fx,fy);
-        return new Object[]{datosFicha,new Point(p1[0],p1[1]), new Point(p2[0],p2[1])};
+        return new Object[]{new Point(p1[0],p1[1]), new Point(p2[0],p2[1])};
     }
 
 

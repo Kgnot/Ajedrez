@@ -7,6 +7,7 @@ import lombok.Setter;
 
 import java.awt.*;
 import java.util.ArrayList;
+import java.util.Objects;
 import javax.swing.*;
 
 @Getter
@@ -15,6 +16,7 @@ public class TableroV extends JLayeredPane {
     private ArrayList<Entity> entidades;
     private final int tam;
     private final Modelo modelo;
+
 
     public TableroV(int tam, Modelo modelo) {
         entidades = new ArrayList<>();
@@ -25,6 +27,7 @@ public class TableroV extends JLayeredPane {
         setSize(new Dimension(tam * 8, tam * 8));
         // iniciamos
         initTableroLogico(); // aquí agregamos el controlador de una vez
+        setBackground(Color.WHITE);
     }
 
     private void initTableroLogico() {
@@ -36,7 +39,7 @@ public class TableroV extends JLayeredPane {
                 cuadros[i][j] = new Casilla(this); // le creamos
                 cuadros[i][j].setSize(tam, tam);
                 cuadros[i][j].setBounds(x, y, tam, tam);
-                cuadros[i][j].setBackground(((j + i) % 2) == 0 ? color1 : color2);
+                //cuadros[i][j].setBackground(((j + i) % 2) == 0 ? color1 : color2);
                 cuadros[i][j].putClientProperty("fila", i);   // Aqui agego las propiedades, pero, donde esta el coso ubicado originalmente?, lo pondremos:
                 cuadros[i][j].putClientProperty("columna", j);
                 // Pondremos la propiedad de su origen:
@@ -55,12 +58,9 @@ public class TableroV extends JLayeredPane {
         this.add(entidad, 0);
     }
 
-    public void deleteEntidades(){
-        for(Entity e : entidades){
+    public void deleteEntidades() {
+        for (Entity e : entidades) {
             this.remove(e);
         }
     }
-
-
-
 }

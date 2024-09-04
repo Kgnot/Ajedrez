@@ -21,6 +21,7 @@ public class Casilla extends JPanel {
         this.tablero = tablero;
         seleccionado = false; // lo inicializamos falso
         imageIcon = new ImageIcon(Objects.requireNonNull(getClass().getResource("/iconos/pixelArt/Casilla.png")));
+        setOpaque(false);
     }
 
     @Override

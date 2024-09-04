@@ -43,11 +43,7 @@ public class Cliente {
                         if(datos !=null){
                             Point ini = (Point) datos[1];
                             Point fin =(Point) datos[2];
-                            var ficha = modelo.getTablero().getTablero()[ini.x][ini.y];
-                            System.out.println("ficha: "+ficha);
-                            System.out.println("");
-
-                            modelo.getTablero().getGestorMovimientosAjedrez().setFichaSimple(ini,fin,ficha);
+                            modelo.getTablero().getGestorMovimientosAjedrez().setFichaSimple(ini,fin);
                         }
                     }
                 } catch (IOException e) {
