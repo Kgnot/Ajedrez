@@ -31,19 +31,26 @@ public class RenderTablero extends Thread {
         }
     }
 
+    public void dibujar(){
+        var tab =  modelo.getJuegoVista().getVistaTablero();
+        tab.deleteEntidades();
+        dibujarTableroInicial();
+        tab.revalidate();
+        tab.repaint();
+    }
+
 
     @Override
     public void run() {
-        //var gm = modelo.getTablero().getGestorMovimientosAjedrez();
+        var gm = modelo.getTablero().getGestorMovimientosAjedrez();
         dibujarTableroInicial();
-        // este debe ser un ciclo perpetuo mirando el tablero constante mente, entonces
-        //
-        //dibujar();
-       /* while (true) {
+        while (true) {
             try {
                 gm.esperarCambio(); // tengo que ver que hago con esto
+                dibujar();
+                System.out.println("entré");
             } catch (InterruptedException ignore) {
             }
-        }*/
+        }
     }
 }

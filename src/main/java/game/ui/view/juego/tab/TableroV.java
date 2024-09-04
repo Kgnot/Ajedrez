@@ -3,6 +3,7 @@ package game.ui.view.juego.tab;
 import game.model.Modelo;
 import game.ui.extra.Entity;
 import lombok.Getter;
+import lombok.Setter;
 
 import java.awt.*;
 import java.util.ArrayList;
@@ -10,9 +11,8 @@ import javax.swing.*;
 
 @Getter
 public class TableroV extends JLayeredPane {
-
-    private final Casilla[][] cuadros;
-    private final ArrayList<Entity> entidades;
+    private Casilla[][] cuadros;
+    private ArrayList<Entity> entidades;
     private final int tam;
     private final Modelo modelo;
 
@@ -53,7 +53,14 @@ public class TableroV extends JLayeredPane {
         entidades.add(entidad);
         entidad.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
         this.add(entidad, 0);
-
     }
+
+    public void deleteEntidades(){
+        for(Entity e : entidades){
+            this.remove(e);
+        }
+    }
+
+
 
 }

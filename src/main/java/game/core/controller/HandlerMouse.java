@@ -4,6 +4,7 @@ import game.core.logic.tablero.Tablero;
 import game.network.Cliente;
 import game.ui.extra.Entity;
 import game.ui.view.juego.tab.TableroV;
+import game.util.CipherUtility;
 
 import java.awt.*;
 import java.awt.event.MouseEvent;
@@ -45,9 +46,8 @@ public class HandlerMouse implements MouseListener, MouseMotionListener {
             entidad.setCasillaInicial(casillaFinal); //el Inicial se vuelve el final
             entidad.setLocation(new Point(casillaFinal.y * tam, casillaFinal.x * tam)); // y lo ubica ahi
             entidad.getParent().setComponentZOrder(entidad, 0);
-
-            getCliente().enviar("ficha;"+entidad.getFicha()+"pi;"+casillaInicial+"pf;"+casillaFinal);
-
+            getCliente().enviar(CipherUtility.getInstance().encryptMensajeFicha
+                    (entidad.getFicha(), casillaInicial, casillaFinal));
             return;
         }
         entidad.setCasillaFinal(new Point(0, 0)); // mandamos el punto final al inicio
@@ -85,12 +85,12 @@ public class HandlerMouse implements MouseListener, MouseMotionListener {
     public void mouseMoved(MouseEvent e) {
     }
 
-    private Tablero getTablero(){
+    private Tablero getTablero() {
         var modelo = (TableroV) entidad.getParent();
         return modelo.getModelo().getTablero();
     }
 
-    private Cliente getCliente(){
+    private Cliente getCliente() {
         var modelo = (TableroV) entidad.getParent();
 
         return modelo.getModelo().getCliente();

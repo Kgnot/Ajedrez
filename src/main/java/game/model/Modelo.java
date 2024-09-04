@@ -1,6 +1,7 @@
 package game.model;
 
-import game.core.logic.builder.BuildTableroAjedrez;
+import game.core.logic.builder.BuildTableroAjedrezBlancas;
+import game.core.logic.builder.BuildTableroAjedrezNegras;
 import game.core.logic.builder.BuilderTablero;
 import game.core.logic.builder.DirectorTablero;
 import game.core.logic.tablero.Tablero;
@@ -28,14 +29,14 @@ public class Modelo {
         }
         return ventana;
     }
-
+    // Parte de conexión
     public Cliente getCliente(){
         if(cliente == null){
-            cliente = new Cliente();
+            cliente = new Cliente(this);
         }
         return cliente;
     }
-
+    // Parte del juego y sus vistas
     public JuegoVista getJuegoVista() {
         if (juegoVista == null) {
             juegoVista = new JuegoVista(this);
@@ -58,7 +59,7 @@ public class Modelo {
         getVentana().pack();
         getVentana().setLocationRelativeTo(null); // para centrarlo
         // Luego la lógica
-        BuilderTablero builder = new BuildTableroAjedrez(); // Iniciamos el tablero de ajedrez
+        BuilderTablero builder = new BuildTableroAjedrezBlancas(); // Iniciamos el tablero de ajedrez -> para negras o para blancas, depende e la perspectiva de la persona
         DirectorTablero director = new DirectorTablero(builder);
         tablero = director.construirTablero();
         // Conexion:

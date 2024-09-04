@@ -1,5 +1,13 @@
 package game.network;
 
+import game.core.logic.Fichas;
+import game.core.logic.fichas.Alfil;
+import game.core.logic.propiedades.Color;
+import game.core.logic.propiedades.Tipo;
+import game.model.Modelo;
+import game.util.CipherUtility;
+
+import java.awt.*;
 import java.io.*;
 import java.net.Socket;
 
@@ -11,8 +19,11 @@ public class Cliente {
     private OutputStreamWriter out;
     private BufferedReader in;
     private static Cliente instanceCliente;
+    // Va a tener un modelo momentaniamente :
+    private Modelo modelo;
 
-    public  Cliente() {
+    public  Cliente(Modelo modelo) {
+        this.modelo = modelo;
         try{
             sc =  new Socket(HOST,PUERTO);
             out =  new OutputStreamWriter(sc.getOutputStream());
@@ -25,8 +36,19 @@ public class Cliente {
                 try {
                     String msj;
                     while ((msj = in.readLine()) != null) {
-
                         System.out.println("Mensaje recibido: " + msj);
+                        //
+                        Object [] datos = CipherUtility.getInstance().decryptMensajeFicha(msj);
+                        System.out.println(datos);
+                        if(datos !=null){
+                            Point ini = (Point) datos[1];
+                            Point fin =(Point) datos[2];
+                            var ficha = modelo.getTablero().getTablero()[ini.x][ini.y];
+                            System.out.println("ficha: "+ficha);
+                            System.out.println("");
+
+                            modelo.getTablero().getGestorMovimientosAjedrez().setFichaSimple(ini,fin,ficha);
+                        }
                     }
                 } catch (IOException e) {
                     System.out.println("Error al recibir mensajes: " + e.getMessage());
@@ -38,9 +60,12 @@ public class Cliente {
         }
     }
 
+    // Momentanio toca quitarlo:
+
+
     public void enviar(String msj){
         try {
-            String mensaje = "Henry1:" + msj;
+            String mensaje = "Henry1:" + msj; // destinatario
             out.write(mensaje + "\n");  // Envía el mensaje terminado en nueva línea
             out.flush();
         }catch (Exception e){

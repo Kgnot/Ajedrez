@@ -23,12 +23,7 @@ public class Tablero {
         tablero[fila][columna] = ficha;
     }
 
-    private void initFichasTablero() {
-
-    }
-
     public boolean getEstado() {
         return estado;
     }
-
 }

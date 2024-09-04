@@ -8,7 +8,4 @@ public abstract class BuilderTablero {
     // Por ahora solo crearemos las Fichas en el tablero
     public abstract void buildFichas();
     public abstract Tablero getTablero();
-
-
-
 }

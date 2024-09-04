@@ -53,12 +53,23 @@ public class GestorMovimientos {
     return true;
     }
 
-   /* public synchronized void esperarCambio() throws InterruptedException {
+    public synchronized boolean setFichaSimple(Point casillaInicial, Point casillaFinal, Fichas ficha){
+        int filaInicial = casillaInicial.x; // Los X son las filas
+        int columnaInicial = casillaInicial.y; // Las Y son las columnas
+        int filaFinal = casillaFinal.x, columnaFinal = casillaFinal.y;
+        tablero.getTablero()[filaInicial][columnaInicial] = null;
+        tablero.getTablero()[filaFinal][columnaFinal] = ficha;
+        tablero.setEstado(true); // me identifica si ha cambiado o no
+        notifyAll(); // notifica al hilo que espera
+        movimientoResultado.reiniciar();
+        return true;
+    }
+    public synchronized void esperarCambio() throws InterruptedException {
         while (!tablero.getEstado()) {
             wait(); // Espera hasta que haya un cambio en el tablero
         }
         tablero.setEstado(false); // Restablece el estado
-    }*/
+    }
 
 
     private boolean verificarPosicionFinal(Point coordenadaFinal) {
@@ -76,6 +87,5 @@ public class GestorMovimientos {
             default -> movimientoResultado.movimientoGeneral(coordenadaInicial,ficha,tablero);
         }
     }
-
 
 }

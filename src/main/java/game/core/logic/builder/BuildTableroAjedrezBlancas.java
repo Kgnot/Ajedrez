@@ -5,9 +5,9 @@ import game.core.logic.propiedades.Color;
 import game.core.logic.tablero.Tablero;
 
 
-public class BuildTableroAjedrez extends BuilderTablero{
+public class BuildTableroAjedrezBlancas extends BuilderTablero{
 
-    public BuildTableroAjedrez(){
+    public BuildTableroAjedrezBlancas(){
         super.tablero = new Tablero();
     }
 
