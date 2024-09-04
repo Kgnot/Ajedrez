@@ -4,13 +4,15 @@ import game.core.logic.builder.BuildTableroAjedrez;
 import game.core.logic.builder.BuilderTablero;
 import game.core.logic.builder.DirectorTablero;
 import game.core.logic.tablero.Tablero;
+import game.network.Cliente;
 import game.ui.view.juego.*;
 import game.ui.render.RenderTablero;
 import lombok.Getter;
 
 public class Modelo {
 
-    //Cremoas un singleton de un observer
+    //Creamos la Conexión
+    private Cliente cliente;
     // creamos las vistas
     private Ventana ventana;
     private JuegoVista juegoVista;
@@ -25,6 +27,13 @@ public class Modelo {
             ventana = new Ventana();
         }
         return ventana;
+    }
+
+    public Cliente getCliente(){
+        if(cliente == null){
+            cliente = new Cliente();
+        }
+        return cliente;
     }
 
     public JuegoVista getJuegoVista() {
@@ -52,7 +61,8 @@ public class Modelo {
         BuilderTablero builder = new BuildTableroAjedrez(); // Iniciamos el tablero de ajedrez
         DirectorTablero director = new DirectorTablero(builder);
         tablero = director.construirTablero();
-
+        // Conexion:
+        getCliente();
         // render
         getRenderTablero().start();
     }

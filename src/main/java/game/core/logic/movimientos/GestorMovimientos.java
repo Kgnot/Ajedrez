@@ -72,7 +72,7 @@ public class GestorMovimientos {
         switch (ficha.getTipo())
         {
             case PEON -> movimientoResultado.movimientoPeon(coordenadaInicial,ficha,tablero);
-            case CABALLO -> movimientoResultado.movimientoCaballo(coordenadaInicial,ficha,tablero);
+            case CABALLO, REY -> movimientoResultado.movimientoCaballoRey(coordenadaInicial,ficha,tablero);
             default -> movimientoResultado.movimientoGeneral(coordenadaInicial,ficha,tablero);
         }
     }

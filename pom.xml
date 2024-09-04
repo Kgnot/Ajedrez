@@ -6,7 +6,7 @@
 
     <groupId>game.ajs</groupId>
     <artifactId>Ajedrez</artifactId>
-    <version>1.0-SNAPSHOT</version>
+    <version>1.0-SNAPSHOT</version>   
 
     <properties>
         <maven.compiler.source>18</maven.compiler.source>
@@ -16,9 +16,10 @@
 
     <dependencies>
         <dependency>
-            <groupId>cn.itlym.shoulder</groupId>
+            <groupId>org.projectlombok</groupId>
             <artifactId>lombok</artifactId>
-            <version>0.1</version>
+            <version>1.18.34</version>
+            <scope>provided</scope>
         </dependency>
         <!-- https://mvnrepository.com/artifact/org.lwjgl/lwjgl-opengl -->
         <dependency>
@@ -35,5 +36,21 @@
 
     </dependencies>
 
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-jar-plugin</artifactId>
+                <version>3.2.0</version>
+                <configuration>
+                    <archive>
+                        <manifest>
+                            <mainClass>game.launcher.Launcher</mainClass>
+                        </manifest>
+                    </archive>
+                </configuration>
+            </plugin>
+        </plugins>
+    </build>
 
 </project>

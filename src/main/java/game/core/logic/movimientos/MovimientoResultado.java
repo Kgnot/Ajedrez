@@ -37,7 +37,7 @@ public class MovimientoResultado {
         verificarCaptura(new Point(x - 1, y + 1), ficha, tablero);
     }
 
-    public void movimientoCaballo(Point coordenadaInicial, Fichas ficha, Tablero tablero) {
+    public void movimientoCaballoRey(Point coordenadaInicial, Fichas ficha, Tablero tablero) {
         int filaInicial = coordenadaInicial.x, columnaInicial = coordenadaInicial.y;
         for (Point dir : ficha.movimiento()) {
             Point destino = new Point(coordenadaInicial.x + dir.x, coordenadaInicial.y + dir.y);
