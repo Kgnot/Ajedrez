@@ -1,27 +1,32 @@
 package game.core.controller;
 
+import game.core.logic.movimientos.GestorMovimientos;
 import game.core.logic.tablero.Tablero;
 import game.network.Cliente;
 import game.ui.extra.Entity;
-import game.ui.view.juego.tab.TableroV;
+import game.ui.view.juego.tab.*;
 import game.util.CipherUtility;
-
 import java.awt.*;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.awt.event.MouseMotionListener;
+import java.util.ArrayList;
+import java.util.Objects;
 
 public class HandlerMouse implements MouseListener, MouseMotionListener {
 
     private final Entity entidad;
     private Point initialClick;
+    private ArrayList<Casilla> afectadas;
 
     public HandlerMouse(Entity entidad) {
         this.entidad = entidad;
+        afectadas = new ArrayList<>();
     }
 
     @Override
     public void mouseClicked(MouseEvent e) {
+        System.out.println("Pero");
     }
 
     @Override
@@ -29,16 +34,43 @@ public class HandlerMouse implements MouseListener, MouseMotionListener {
         initialClick = e.getPoint();
         // En mouse pressed vamos a cambiarle la imagen
         entidad.estadoSelect();
+        TableroV tablero = (TableroV) entidad.getParent();
+        getGestorMovimientos().movimientos_y_enemigosPosibles(entidad.getCasillaInicial());
+        var mov = getGestorMovimientos().getMovimientoResultado();
+        var validos = mov.getMovimientosValidos();
+        var enemigos = mov.getEnemigos();
+
+        for(Point p : validos){
+            tablero.getCasillas()[p.x][p.y].select();
+            afectadas.add(tablero.getCasillas()[p.x][p.y]);
+        }
+        for(Point p : enemigos){
+            tablero.getCasillas()[p.x][p.y].muerte();
+            afectadas.add(tablero.getCasillas()[p.x][p.y]);
+
+        }
+        mov.reiniciar();
+
     }
 
     @Override
     public void mouseReleased(MouseEvent e) {
+        for(Casilla c : afectadas){
+            c.standard();
+        }
+        afectadas.clear();
+        // Luego de limpiar las afectadas
         entidad.estadoOriginal(); // lo devolvemos al estado original
         int tam = entidad.getWidth(), xFinal = entidad.getLocation().x + (tam / 2), yFinal = entidad.getLocation().y + (tam / 2);
         Point casillaInicial = entidad.getCasillaInicial();
         // ¿Dónde cayó?
         int casillaFila = (yFinal / tam), casillaColumna = (xFinal / tam);
         Point casillaFinal = new Point(casillaFila, casillaColumna);
+        if(Objects.equals(casillaInicial, casillaFinal)){
+            entidad.setCasillaFinal(new Point(0, 0)); // mandamos el punto final al inicio
+            entidad.setLocation(new Point(casillaInicial.y * tam, casillaInicial.x * tam));
+            return;
+        }
         entidad.setCasillaFinal(new Point(casillaFila, casillaColumna)); // mandamos el punto final de mientras
         // Aquí hace la verificación:
         var gestor = getTablero().getGestorMovimientosAjedrez(); // Obtenemos el gestor de movimientos
@@ -56,6 +88,7 @@ public class HandlerMouse implements MouseListener, MouseMotionListener {
 
     @Override
     public void mouseEntered(MouseEvent e) {
+
     }
 
     @Override
@@ -94,6 +127,10 @@ public class HandlerMouse implements MouseListener, MouseMotionListener {
         var modelo = (TableroV) entidad.getParent();
 
         return modelo.getModelo().getCliente();
+    }
+
+    private GestorMovimientos getGestorMovimientos(){
+        return  getTablero().getGestorMovimientosAjedrez();
     }
 
 }

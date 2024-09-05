@@ -10,7 +10,7 @@ import javax.swing.*;
 
 @Getter
 public class TableroV extends JLayeredPane {
-    private final Casilla[][] cuadros;
+    private final Casilla[][] casillas;
     private final ArrayList<Entity> entidades;
     private final int tam;
     private final Modelo modelo;
@@ -20,7 +20,7 @@ public class TableroV extends JLayeredPane {
         entidades = new ArrayList<>();
         this.modelo = modelo;
         this.tam = tam;
-        cuadros = new Casilla[8][8];
+        casillas = new Casilla[8][8];
         setLayout(null); // necesario ponerlo en null
         setSize(new Dimension(tam * 8, tam * 8));
         // iniciamos
@@ -32,15 +32,15 @@ public class TableroV extends JLayeredPane {
         int x = 0, y = 0;
         for (int i = 0; i < 8; i++) {
             for (int j = 0; j < 8; j++) {
-                cuadros[i][j] = new Casilla(this); // le creamos
-                cuadros[i][j].setSize(tam, tam);
-                cuadros[i][j].setBounds(x, y, tam, tam);
+                casillas[i][j] = new Casilla(this); // le creamos
+                casillas[i][j].setSize(tam, tam);
+                casillas[i][j].setBounds(x, y, tam, tam);
                 //cuadros[i][j].setBackground(((j + i) % 2) == 0 ? color1 : color2);
-                cuadros[i][j].putClientProperty("fila", i);   // Aquí agrego las propiedades, pero, donde esta el coso ubicado originalmente?, lo pondremos:
-                cuadros[i][j].putClientProperty("columna", j);
+                casillas[i][j].putClientProperty("fila", i);   // Aquí agrego las propiedades, pero, donde esta el coso ubicado originalmente?, lo pondremos:
+                casillas[i][j].putClientProperty("columna", j);
                 // Pondremos la propiedad de su origen:
-                cuadros[i][j].setPuntoInicial(cuadros[i][j].getLocation()); //En forma de punto
-                add(cuadros[i][j]); //,JLayeredPane.DEFAULT_LAYER); // Porque esto? --> Investigar | Pero no es necesario, lo necesario sería él de los peones, etc
+                casillas[i][j].setPuntoInicial(casillas[i][j].getLocation()); //En forma de punto
+                add(casillas[i][j]); //,JLayeredPane.DEFAULT_LAYER); // Porque esto? --> Investigar | Pero no es necesario, lo necesario sería él de los peones, etc
                 x += tam;
             }
             x = 0;
@@ -59,4 +59,9 @@ public class TableroV extends JLayeredPane {
             this.remove(e);
         }
     }
+
+    public Casilla[][] getCasillas(){
+        return casillas;
+    }
+
 }

@@ -13,4 +13,5 @@ public class OtherEntity extends FichaEntity {
         super.paintComponent(g);
         g.drawImage(super.getImageIcon().getImage(), 0, 0, getWidth(), getHeight(), this);
     }
+    
 }

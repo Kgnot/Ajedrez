@@ -22,7 +22,7 @@ public class GestorMovimientos {
         int filaInicial = casillaInicial.x; // Los X son las filas
         int columnaInicial = casillaInicial.y; // Las Y son las columnas
         Fichas ficha = tablero.getTablero()[filaInicial][columnaInicial];
-        movimientos_y_enemigosPosibles(casillaInicial,ficha);
+        movimientos_y_enemigosPosibles(casillaInicial);
 
         // Finales
         int filaFinal = casillaFinal.x, columnaFinal = casillaFinal.y;
@@ -81,12 +81,13 @@ public class GestorMovimientos {
 
     }
 
-    private void movimientos_y_enemigosPosibles(Point coordenadaInicial, Fichas ficha) {
+    public void movimientos_y_enemigosPosibles(Point coordenadaInicial) {
+        var ficha = tablero.getTablero()[coordenadaInicial.x][coordenadaInicial.y];
         switch (ficha.getTipo())
         {
-            case PEON -> movimientoResultado.movimientoPeon(coordenadaInicial,ficha,tablero);
-            case CABALLO, REY -> movimientoResultado.movimientoCaballoRey(coordenadaInicial,ficha,tablero);
-            default -> movimientoResultado.movimientoGeneral(coordenadaInicial,ficha,tablero);
+            case PEON -> movimientoResultado.movimientoPeon(coordenadaInicial,tablero);
+            case CABALLO, REY -> movimientoResultado.movimientoCaballoRey(coordenadaInicial,tablero);
+            default -> movimientoResultado.movimientoGeneral(coordenadaInicial,tablero);
         }
     }
 

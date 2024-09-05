@@ -15,8 +15,8 @@ public class Cliente {
     private OutputStreamWriter out;
     private BufferedReader in;
     private static Cliente instanceCliente;
-    // Va a tener un modelo momentaniamente :
-    private Modelo modelo;
+    // Va a tener un modelo momentáneamente:
+    private final Modelo modelo;
 
     public  Cliente(Modelo modelo) {
         this.modelo = modelo;
@@ -24,39 +24,39 @@ public class Cliente {
             sc =  new Socket(HOST,PUERTO);
             out =  new OutputStreamWriter(sc.getOutputStream());
             in =  new BufferedReader(new InputStreamReader(sc.getInputStream()));  // esto es extraño pero no tanto
-
-            out.write("Henry2\n");
+            out.write("Henry2\n"); // Escribe y pasa el "id"
             out.flush(); // Para enviar
-            // Hilo para leer:
-            new Thread(() -> {
-                try {
-                    String msj;
-                    while ((msj = in.readLine()) != null) {
-                        System.out.println("Mensaje recibido: " + msj);
-                        //
-                        Object [] datos = CipherUtility.getInstance().decryptMensajeFicha(msj);
-                        if(datos !=null){
-                            Point ini = (Point) datos[1];
-                            Point fin =(Point) datos[2];
-                            modelo.getTablero().getGestorMovimientosAjedrez().setFichaSimple(ini,fin);
-                        }
-                    }
-                } catch (IOException e) {
-                    System.out.println("Error al recibir mensajes: " + e.getMessage());
-                }
-            }).start();
-
+            // Hilo para escuchar:
+            escuchar();
         }catch (IOException e){
             System.out.println("Error: "+ e.getMessage());
         }
     }
 
-    // Momentanio toca quitarlo:
-
+    // Momenta toca quitarlo:
+    private void escuchar(){
+        new Thread(() -> {
+            try {
+                String msj;
+                while ((msj = in.readLine()) != null) {
+                    System.out.println("Mensaje recibido: " + msj);
+                    //
+                    Object [] datos = CipherUtility.getInstance().decryptMensajeFicha(msj);
+                    if(datos !=null){
+                        Point ini = (Point) datos[1];
+                        Point fin =(Point) datos[2];
+                        modelo.getTablero().getGestorMovimientosAjedrez().setFichaSimple(ini,fin);
+                    }
+                }
+            } catch (IOException e) {
+                System.out.println("Error al recibir mensajes: " + e.getMessage());
+            }
+        }).start();
+    }
 
     public void enviar(String msj){
         try {
-            String mensaje = "Henry1:" + msj; // destinatario
+            String mensaje = "Henry1:" + msj; // destinatario del mensaje que de hecho me lo deberia pasar el sistema, ¿Contra quíen juego??
             out.write(mensaje + "\n");  // Envía el mensaje terminado en nueva línea
             out.flush();
         }catch (Exception e){

@@ -13,7 +13,6 @@ public class Tablero {
     private volatile boolean estado = false;
     @Getter
     private final GestorMovimientos gestorMovimientosAjedrez;
-
     public Tablero() {
         tablero = new Fichas[8][8];
         gestorMovimientosAjedrez = new GestorMovimientos(this);
