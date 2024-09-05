@@ -10,15 +10,14 @@ import game.ui.view.juego.*;
 import game.ui.render.RenderTablero;
 import lombok.Getter;
 
-public class Modelo {
-    public int inicioLado;
+import java.awt.*;
 
+public class Modelo {
     //Creamos la Conexión
     private Cliente cliente;
     // creamos las vistas
     private Ventana ventana;
     private JuegoVista juegoVista;
-    private EleccionLado vistaElect;
     //Apartado de logica
     @Getter
     private Tablero tablero;
@@ -33,12 +32,6 @@ public class Modelo {
         return ventana;
     }
 
-    public EleccionLado getVistaElect() {
-        if (vistaElect == null) {
-            vistaElect = new EleccionLado(this);
-        }
-        return vistaElect;
-    }
 
     // Parte de conexión
     public Cliente getCliente() {
@@ -65,35 +58,25 @@ public class Modelo {
     }
 
     //Lo que es los métodos.
-    public synchronized void start() throws InterruptedException {
-        inicioLado = 0;
-        //Iniciamos la parte visual
-        getVentana().add(getVistaElect());
+    public  void start() {
+        getVentana().add(getJuegoVista()); // Metemos a la ventana del videojuego
         getVentana().pack();
-        getVentana().setLocationRelativeTo(null); // para centrarlo
-        while(inicioLado == 0) {
-            wait();
-        }
-        inicioJuego();
+        getVentana().setLocationRelativeTo(null);
     }
-
-private void inicioJuego(){
-    // Luego la lógica
-    BuilderTablero builder;
-    switch (inicioLado) {
-        case 1 -> {
-            builder = new BuildTableroAjedrezBlancas(); // Iniciamos el tablero de ajedrez -> para negras o para blancas, depende e la perspectiva de la persona
+    public  void inicioJuego(int inicioLado) {
+        // Luego la lógica
+        BuilderTablero builder;
+        switch (inicioLado) {
+            case 1 -> {
+                builder = new BuildTableroAjedrezBlancas(); // Iniciamos el tablero de ajedrez -> para negras o para blancas, depende e la perspectiva de la persona
+            }
+            default -> {
+                builder = new BuildTableroAjedrezNegras(); // Iniciamos el tablero de ajedrez -> para negras o para blancas, depende e la perspectiva de la persona
+            }
         }
-        default -> {
-            builder = new BuildTableroAjedrezNegras(); // Iniciamos el tablero de ajedrez -> para negras o para blancas, depende e la perspectiva de la persona
-        }
+        DirectorTablero director = new DirectorTablero(builder);
+        tablero = director.construirTablero(); // Creamos el tablero
+        // render
+        getRenderTablero().start();
     }
-    DirectorTablero director = new DirectorTablero(builder);
-    tablero = director.construirTablero();
-    getVentana().add(getJuegoVista()); // Metemos a la ventana del videojuego
-    // Conexion:
-    getCliente();
-    // render
-    getRenderTablero().start();
-}
 }

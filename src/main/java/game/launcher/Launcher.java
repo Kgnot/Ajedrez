@@ -1,6 +1,9 @@
 package game.launcher;
 
+import com.formdev.flatlaf.FlatLightLaf;
 import game.model.Modelo;
+
+import javax.swing.*;
 
 public class Launcher {
 
@@ -9,10 +12,10 @@ public class Launcher {
         modelo.start();
     }
 
-    public static void main(String[] args) throws InterruptedException {
+    public static void main(String[] args) throws InterruptedException, UnsupportedLookAndFeelException {
+        UIManager.setLookAndFeel(new FlatLightLaf());
 
-    new Launcher(); // JUEGO MIDE 1200 X 890
-
+        new Launcher(); // JUEGO MIDE 1200 X 890
 
 
     }

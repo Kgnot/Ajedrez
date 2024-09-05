@@ -4,7 +4,12 @@ import game.core.controller.HandlerMouse;
 import lombok.Getter;
 import lombok.Setter;
 
+import javax.imageio.ImageIO;
 import javax.swing.*;
+import java.awt.*;
+import java.awt.geom.Area;
+import java.awt.image.BufferedImage;
+import java.io.File;
 import java.util.Objects;
 
 @Setter
@@ -21,7 +26,7 @@ public class FichaEntity extends Entity {
         pathSelect = path; // lo inicializaremos así, para que no haya error
         pathOriginal = path;
         try {
-            imageIcon = new ImageIcon(Objects.requireNonNull(getClass().getResource(path)));
+            imageIcon = new ImageIcon(Objects.requireNonNull(getClass().getResource(pathOriginal)));
         } catch (Exception ignore) {
             System.out.println("No se encontró la imagen deseada");
         }
@@ -34,19 +39,21 @@ public class FichaEntity extends Entity {
         imageIcon = new ImageIcon(Objects.requireNonNull(getClass().getResource(pathSelect)));
         revalidate();
         repaint();
+
     }
 
     @Override
     public void estadoOriginal() {
+
         imageIcon = new ImageIcon(Objects.requireNonNull(getClass().getResource(pathOriginal)));
         revalidate();
         repaint();
+
     }
 
     public void setImagenSelect(String pathSelect) {
         this.pathSelect = pathSelect;
     }
-
 
     private HandlerMouse getHandler() {
         if (HM == null) {
@@ -54,10 +61,4 @@ public class FichaEntity extends Entity {
         }
         return HM;
     }
-
-  /* @Override
-    protected void paintComponent(Graphics g) {
-        super.paintComponent(g);
-        g.drawImage(imageIcon.getImage(), 0, 0, getWidth(), getHeight(), this);
-    }*/
 }

@@ -1,38 +1,118 @@
 package game.ui.view.juego;
 
-
+import game.core.controller.ControllerJuegoVista;
 import game.model.Modelo;
 import game.ui.view.juego.tab.TableroV;
 import lombok.Getter;
 
+import java.awt.*;
+
+@Getter
 public class JuegoVista extends javax.swing.JPanel {
 
     private final Modelo modelo;
     @Getter
     private final TableroV vistaTablero;
+    private ControllerJuegoVista controlador;
 
     public JuegoVista(Modelo modelo) {
         this.modelo = modelo;
         initComponents();
-        vistaTablero = new TableroV(AjedrezJuego.getPreferredSize().width/8,this.modelo);
+        initListener();
+        vistaTablero = new TableroV(AjedrezJuego.getPreferredSize().width / 8, this.modelo);
         AjedrezJuego.add(vistaTablero);
+    }
+
+    private void initListener() {
+        Negras.addActionListener(getControlador());
+        Blancas.addActionListener(getControlador());
+    }
+
+    public void cambiarPanelJuego() {
+        CardLayout layout = (CardLayout) this.getLayout();
+        layout.show(this, "GameTablero");
+    }
+
+    public void CambiarPanelEleccion() {
+        CardLayout layout = (CardLayout) this.getLayout();
+        layout.show(this, "PanelEleccion");
+    }
+
+    private ControllerJuegoVista getControlador() {
+        if (controlador == null) {
+            controlador = new ControllerJuegoVista(this);
+        }
+        return controlador;
     }
 
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        Login = new javax.swing.JPanel();
+        inicioLogin1 = new game.ui.view.juego.InicioLogin(getControlador());
+        PanelEleccion = new javax.swing.JPanel();
+        Blancas = new javax.swing.JButton();
+        Negras = new javax.swing.JButton();
+        MainPanel = new javax.swing.JPanel();
+        PanelMenu = new javax.swing.JPanel();
         PanelTablero = new javax.swing.JPanel();
         AjedrezJuego = new javax.swing.JPanel();
         PanelFichasMuertas = new javax.swing.JPanel();
-        PanelLateral = new javax.swing.JPanel();
-        BTN_Enviar = new javax.swing.JButton();
-        jScrollPane1 = new javax.swing.JScrollPane();
-        TA_Chat = new javax.swing.JTextArea();
-        TF_Chat = new javax.swing.JTextField();
-        PanelMenu = new javax.swing.JPanel();
 
-        setPreferredSize(new java.awt.Dimension(1200, 890));
+        setPreferredSize(new java.awt.Dimension(1200, 820));
+        setLayout(new java.awt.CardLayout());
+
+        javax.swing.GroupLayout LoginLayout = new javax.swing.GroupLayout(Login);
+        Login.setLayout(LoginLayout);
+        LoginLayout.setHorizontalGroup(
+            LoginLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(inicioLogin1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 1188, Short.MAX_VALUE)
+        );
+        LoginLayout.setVerticalGroup(
+            LoginLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, LoginLayout.createSequentialGroup()
+                .addGap(0, 0, Short.MAX_VALUE)
+                .addComponent(inicioLogin1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+        );
+
+        add(Login, "PanelLogin");
+
+        Blancas.setIcon(new javax.swing.ImageIcon(getClass().getResource("/iconos/pixelArt/Bander/ImagenBlancas.png"))); // NOI18N
+
+        Negras.setIcon(new javax.swing.ImageIcon(getClass().getResource("/iconos/pixelArt/Bander/ImagenNegras.jpeg"))); // NOI18N
+
+        javax.swing.GroupLayout PanelEleccionLayout = new javax.swing.GroupLayout(PanelEleccion);
+        PanelEleccion.setLayout(PanelEleccionLayout);
+        PanelEleccionLayout.setHorizontalGroup(
+            PanelEleccionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(PanelEleccionLayout.createSequentialGroup()
+                .addComponent(Blancas, javax.swing.GroupLayout.DEFAULT_SIZE, 578, Short.MAX_VALUE)
+                .addGap(0, 0, 0)
+                .addComponent(Negras, javax.swing.GroupLayout.DEFAULT_SIZE, 610, Short.MAX_VALUE)
+                .addGap(0, 0, 0))
+        );
+        PanelEleccionLayout.setVerticalGroup(
+            PanelEleccionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(PanelEleccionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                .addComponent(Blancas, javax.swing.GroupLayout.PREFERRED_SIZE, 820, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(Negras, javax.swing.GroupLayout.PREFERRED_SIZE, 820, javax.swing.GroupLayout.PREFERRED_SIZE))
+        );
+
+        add(PanelEleccion, "PanelEleccion");
+
+        PanelMenu.setBackground(new java.awt.Color(39, 55, 70));
+
+        javax.swing.GroupLayout PanelMenuLayout = new javax.swing.GroupLayout(PanelMenu);
+        PanelMenu.setLayout(PanelMenuLayout);
+        PanelMenuLayout.setHorizontalGroup(
+            PanelMenuLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 1188, Short.MAX_VALUE)
+        );
+        PanelMenuLayout.setVerticalGroup(
+            PanelMenuLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 59, Short.MAX_VALUE)
+        );
 
         PanelTablero.setBackground(new java.awt.Color(133, 146, 158));
 
@@ -46,11 +126,11 @@ public class JuegoVista extends javax.swing.JPanel {
         PanelFichasMuertas.setLayout(PanelFichasMuertasLayout);
         PanelFichasMuertasLayout.setHorizontalGroup(
             PanelFichasMuertasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 179, Short.MAX_VALUE)
+            .addGap(0, 327, Short.MAX_VALUE)
         );
         PanelFichasMuertasLayout.setVerticalGroup(
             PanelFichasMuertasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 701, Short.MAX_VALUE)
+            .addGap(0, 212, Short.MAX_VALUE)
         );
 
         javax.swing.GroupLayout PanelTableroLayout = new javax.swing.GroupLayout(PanelTablero);
@@ -58,109 +138,51 @@ public class JuegoVista extends javax.swing.JPanel {
         PanelTableroLayout.setHorizontalGroup(
             PanelTableroLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, PanelTableroLayout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(PanelFichasMuertas, javax.swing.GroupLayout.DEFAULT_SIZE, 179, Short.MAX_VALUE)
-                .addGap(18, 18, 18)
-                .addComponent(AjedrezJuego, javax.swing.GroupLayout.DEFAULT_SIZE, 718, Short.MAX_VALUE)
-                .addGap(30, 30, 30))
+                .addGap(26, 26, 26)
+                .addComponent(AjedrezJuego, javax.swing.GroupLayout.PREFERRED_SIZE, 720, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(PanelFichasMuertas, javax.swing.GroupLayout.PREFERRED_SIZE, 327, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(49, 49, 49))
         );
         PanelTableroLayout.setVerticalGroup(
             PanelTableroLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(PanelTableroLayout.createSequentialGroup()
-                .addGap(20, 20, 20)
+                .addGap(24, 24, 24)
                 .addGroup(PanelTableroLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(PanelFichasMuertas, javax.swing.GroupLayout.PREFERRED_SIZE, 701, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(AjedrezJuego, javax.swing.GroupLayout.PREFERRED_SIZE, 701, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(14, Short.MAX_VALUE))
+                    .addComponent(PanelFichasMuertas, javax.swing.GroupLayout.PREFERRED_SIZE, 212, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(AjedrezJuego, javax.swing.GroupLayout.PREFERRED_SIZE, 720, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(17, Short.MAX_VALUE))
         );
 
-        PanelLateral.setBackground(new java.awt.Color(255, 255, 255));
-
-        BTN_Enviar.setText("Enviar");
-        BTN_Enviar.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-
-        TA_Chat.setEditable(false);
-        TA_Chat.setBackground(new java.awt.Color(255, 255, 255));
-        TA_Chat.setColumns(20);
-        TA_Chat.setLineWrap(true);
-        TA_Chat.setRows(5);
-        jScrollPane1.setViewportView(TA_Chat);
-
-        javax.swing.GroupLayout PanelLateralLayout = new javax.swing.GroupLayout(PanelLateral);
-        PanelLateral.setLayout(PanelLateralLayout);
-        PanelLateralLayout.setHorizontalGroup(
-            PanelLateralLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(PanelLateralLayout.createSequentialGroup()
-                .addGroup(PanelLateralLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(PanelLateralLayout.createSequentialGroup()
-                        .addGap(61, 61, 61)
-                        .addComponent(BTN_Enviar, javax.swing.GroupLayout.PREFERRED_SIZE, 114, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(0, 0, Short.MAX_VALUE))
-                    .addGroup(PanelLateralLayout.createSequentialGroup()
-                        .addContainerGap()
-                        .addComponent(TF_Chat))
-                    .addGroup(PanelLateralLayout.createSequentialGroup()
-                        .addContainerGap()
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 237, Short.MAX_VALUE)))
-                .addContainerGap())
-        );
-        PanelLateralLayout.setVerticalGroup(
-            PanelLateralLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, PanelLateralLayout.createSequentialGroup()
-                .addGap(12, 12, 12)
-                .addComponent(jScrollPane1)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(TF_Chat, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(BTN_Enviar, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(29, 29, 29))
-        );
-
-        PanelMenu.setBackground(new java.awt.Color(39, 55, 70));
-
-        javax.swing.GroupLayout PanelMenuLayout = new javax.swing.GroupLayout(PanelMenu);
-        PanelMenu.setLayout(PanelMenuLayout);
-        PanelMenuLayout.setHorizontalGroup(
-            PanelMenuLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 0, Short.MAX_VALUE)
-        );
-        PanelMenuLayout.setVerticalGroup(
-            PanelMenuLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 55, Short.MAX_VALUE)
-        );
-
-        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
-        this.setLayout(layout);
-        layout.setHorizontalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addComponent(PanelTablero, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addGap(0, 0, 0)
-                .addComponent(PanelLateral, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        javax.swing.GroupLayout MainPanelLayout = new javax.swing.GroupLayout(MainPanel);
+        MainPanel.setLayout(MainPanelLayout);
+        MainPanelLayout.setHorizontalGroup(
+            MainPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(PanelMenu, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(PanelTablero, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
-        layout.setVerticalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+        MainPanelLayout.setVerticalGroup(
+            MainPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, MainPanelLayout.createSequentialGroup()
+                .addGap(0, 0, 0)
                 .addComponent(PanelMenu, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(0, 0, 0)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(PanelLateral, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(PanelTablero, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addComponent(PanelTablero, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
+
+        add(MainPanel, "GameTablero");
     }// </editor-fold>//GEN-END:initComponents
-
-
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel AjedrezJuego;
-    private javax.swing.JButton BTN_Enviar;
+    private javax.swing.JButton Blancas;
+    private javax.swing.JPanel Login;
+    private javax.swing.JPanel MainPanel;
+    private javax.swing.JButton Negras;
+    private javax.swing.JPanel PanelEleccion;
     private javax.swing.JPanel PanelFichasMuertas;
-    private javax.swing.JPanel PanelLateral;
     private javax.swing.JPanel PanelMenu;
     private javax.swing.JPanel PanelTablero;
-    private javax.swing.JTextArea TA_Chat;
-    private javax.swing.JTextField TF_Chat;
-    private javax.swing.JScrollPane jScrollPane1;
+    private game.ui.view.juego.InicioLogin inicioLogin1;
     // End of variables declaration//GEN-END:variables
 
 }

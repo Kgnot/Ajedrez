@@ -11,7 +11,9 @@ public class OtherEntity extends FichaEntity {
     @Override
     protected void paintComponent(Graphics g) {
         super.paintComponent(g);
-        g.drawImage(super.getImageIcon().getImage(), 0, 0, getWidth(), getHeight(), this);
+        Graphics2D g2 = (Graphics2D) g;
+
+        g.drawImage(super.getImageIcon().getImage(),0,0,getWidth(),getHeight(),this);
     }
     
 }
