@@ -56,7 +56,7 @@ public class HandlerMouse implements MouseListener, MouseMotionListener {
     @Override
     public void mouseReleased(MouseEvent e) {
         for(Casilla c : afectadas){
-            c.standard();
+            c.volverInicial();
         }
         afectadas.clear();
         // Luego de limpiar las afectadas

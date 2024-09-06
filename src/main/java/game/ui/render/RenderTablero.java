@@ -48,7 +48,6 @@ public class RenderTablero extends Thread {
             try {
                 gm.esperarCambio(); // tengo que ver que hago con esto
                 dibujar();
-                System.out.println("entré");
             } catch (InterruptedException ignore) {
             }
         }

@@ -21,8 +21,8 @@ public class CipherUtility {
     public Object[] decryptMensajeFicha(String mensaje){
         String[] datos = mensaje.split(";");
         if(datos.length < 2) return null;
-        String pInicialSTR = datos[1];
-        String pFinalSTR = datos[2];
+        String pInicialSTR = datos[0];
+        String pFinalSTR = datos[1];
 
         int ix = Integer.parseInt(pInicialSTR.split("\\|")[0]);
         int iy =Integer.parseInt( pInicialSTR.split("\\|")[1]);

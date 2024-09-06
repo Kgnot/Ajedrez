@@ -40,26 +40,26 @@ public class ConnectDB {
         String sql = "SELECT * FROM USUARIOS WHERE UsuarioID = ? AND password  = ? ";
         try {
             ps = dataBase.prepareStatement(sql);
-            ps.setString(1,user);
-            ps.setString(2,password);
+            ps.setString(1, user);
+            ps.setString(2, password);
             //Result set:
             rs = ps.executeQuery();
-            boolean salida = rs.next(); // prefiero guardarlo si algo xd
-            while(rs.next()){
+            while (rs.next()) {
                 String lastName = rs.getString("LastName");
                 String firstName = rs.getString("FirstName");
                 USUARIO.setUsuarioID(user);
                 USUARIO.setPassword(password);
                 USUARIO.setFirstName(firstName);
                 USUARIO.setLastName(lastName);
+
+                System.out.println("Dentro BD: " + USUARIO.getUsuarioID());
+                return true;
             }
 
-            return salida;
-        }
-        catch (SQLException ex){
+            return false;
+        } catch (SQLException ex) {
             System.out.println(ex.getMessage());
         }
-
 
 
         return false;

@@ -59,7 +59,7 @@ public class GestorMovimientos {
         int filaInicial = casillaInicial.x; // Los X son las filas
         int columnaInicial = casillaInicial.y; // Las Y son las columnas
         int filaFinal = casillaFinal.x, columnaFinal = casillaFinal.y;
-        Fichas ficha = tablero.getTablero()[filaFinal][columnaFinal];
+        Fichas ficha = tablero.getTablero()[filaInicial][columnaInicial];
         tablero.getTablero()[filaInicial][columnaInicial] = null;
         tablero.getTablero()[filaFinal][columnaFinal] = ficha;
         tablero.setEstado(true); // me identifica si ha cambiado o no

@@ -35,7 +35,7 @@ public class TableroV extends JLayeredPane {
                 casillas[i][j] = new Casilla(this); // le creamos
                 casillas[i][j].setSize(tam, tam);
                 casillas[i][j].setBounds(x, y, tam, tam);
-                //cuadros[i][j].setBackground(((j + i) % 2) == 0 ? color1 : color2);
+                casillas[i][j].setTipo(j + i);
                 casillas[i][j].putClientProperty("fila", i);   // Aquí agrego las propiedades, pero, donde esta el coso ubicado originalmente?, lo pondremos:
                 casillas[i][j].putClientProperty("columna", j);
                 // Pondremos la propiedad de su origen:

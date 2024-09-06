@@ -1,17 +1,15 @@
 package game.network;
 
+import lombok.Getter;
 import lombok.Setter;
 
 @Setter
+@Getter
 public class Usuario {
 
-    @Setter
     private String usuarioID;
-    @Setter
     private String password;
-    @Setter
     private String lastName;
-    @Setter
     private String firstName;
     private static Usuario user;
 
